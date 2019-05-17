@@ -4,6 +4,7 @@
 //Funcion main, muestra el menu inicial
 int main(int argc, char *argv[])
 {
+	//change
 	QApplication a(argc, argv);
 	menu w;
 	w.show();
