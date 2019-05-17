@@ -13,10 +13,12 @@ menu::menu(QWidget *parent) :
 	//Poner imagen del menu
 	QString s = QCoreApplication::applicationDirPath() + "/resources/menu.png";
 	QPixmap menuImage;
+	//Si carga de manera correcta carga la imagen
 	if (menuImage.load(s) == true)
 	{
 		ui->image->setPixmap(menuImage);
 	}
+	//Si no logra cargar la imagen muestra un error
 	else
 	{
 		qDebug() << s;
@@ -31,16 +33,19 @@ menu::~menu()
 	delete ui;
 }
 
+//Cerrar la ventana si se le da click al boton de salir
 void menu::on_salir_clicked()
 {
 	this->close();
 }
 
+//Abrir el dialogo de acerca de si se le da click al boton
 void menu::on_acerca_clicked()
 {
 	acerca->exec();
 }
 
+//Abrir la ventana de juego
 void menu::on_jugar_clicked()
 {
 	hide();

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>acercaDe</class>
+ <widget class="QDialog" name="acercaDe">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>368</width>
+    <height>341</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Acerca de</string>
+  </property>
+  <widget class="QLabel" name="descripcion">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>120</y>
+     <width>341</width>
+     <height>161</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Hecho por:
+
+-Emilio Aaron Puga Avalos
+-Angel Jarym Gomez Meza
+-Erick Yair Aguilera Acamacho
+-Ricardo Adrian Buena Corona
+
+Proyecto para programacion orientada a objetos</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="logoUg">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>341</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>ug.png no cargo correctamente</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="aceptar">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>290</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Aceptar</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
