@@ -7,6 +7,8 @@
 #include <QTextBrowser>
 #include <QtDebug>
 
+#include "game/clases/peon.h"
+
 namespace Ui {
 class tablero;
 }
