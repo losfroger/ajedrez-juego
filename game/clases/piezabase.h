@@ -29,7 +29,9 @@ enum tipoPieza
 };
 
 //Tamaño del cuadrado
-const int TAM_CUADRO = 32;
+const int TAM_CUADRO = 71;
+//Tamaño del espacio donde estan los numeros y letras
+const int TAM_SANGRIA = 16;
 
 
 class piezaBase : public QObject, public QGraphicsPixmapItem
@@ -48,11 +50,16 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		virtual QList<QPoint> movimientos();
 
 		void cambiarPos(QPoint newPos);
+		///Regresa la posicion actual en el tablero de la pieza
 		QPoint getPos();
+		///Evento de click con el mouse en la pieza
 		void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 	public slots:
-		void move();
+		///Se activa cuando se escoge una de las cajas de movimiento
+		/**
+		Elimina todas las cajas de seleccion y establece la nueva posicion de la pieza*/
+		void move(QPoint coordT);
 	private:
 		tipoPieza pieza; //!Tipo de pieza
 		QPoint coordTablero; //!Posicion de la pieza en el tablero

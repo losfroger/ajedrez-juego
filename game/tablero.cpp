@@ -8,6 +8,7 @@ tablero::tablero(QWidget *parent) :
 	ui->setupUi(this);
 
 	scene = new QGraphicsScene;
+	scene->setSceneRect(0,0,600,600);
 
 	//Configurar la vista del juego
 	ui->gameView->setScene(scene);
@@ -20,7 +21,7 @@ tablero::tablero(QWidget *parent) :
 	scene->addItem(tablero);
 
 	//peon *peonA = new peon(nullptr,QPoint(200,200),0);
-	peon *peonB = new peon(nullptr,QPoint(32,32),1);
+	peon *peonB = new peon(nullptr,QPoint(1,0),1);
 	//scene->addItem(peonA);
 	scene->addItem(peonB);
 

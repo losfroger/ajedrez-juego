@@ -10,14 +10,20 @@ peon::peon(QGraphicsItem *parent, QPoint coordI, bool iColor) : piezaBase (paren
 	}
 	qDebug() << routeImage;
 	setPixmap(routeImage);
+	firstMove = true;
 }
 
 QList<QPoint> peon::movimientos()
 {
 	QList <QPoint> moves;
-	moves.append(QPoint(this->x(),this->y()+67));
-	moves.append(QPoint(this->x(),this->y()+134));
+	if(firstMove == true)
+	{
+		if (this->getPos().y()+2 < 8)
+		moves.append(QPoint(this->getPos().x(),this->getPos().y()+2));
+	}
+	if(this->getPos().y()+1 < 8)
+		moves.append(QPoint(this->getPos().x(),this->getPos().y()+1));
 
-
+	firstMove = false;
 	return moves;
 }
