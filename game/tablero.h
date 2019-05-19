@@ -17,6 +17,8 @@ namespace Ui {
 class tablero;
 }
 
+using namespace piezas;
+
 class tablero : public QDialog
 {
 	Q_OBJECT

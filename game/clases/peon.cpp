@@ -1,8 +1,9 @@
 #include "peon.h"
 
-peon::peon(QGraphicsItem *parent, QPoint coordI, bool iColor) : piezaBase (parent, coordI, iColor, PEON)
+piezas::peon::peon(QGraphicsItem *parent, QPoint coordI, bool iColor) : piezaBase (parent, coordI, iColor, PEON)
 {
 	QString routeImage;
+	//Cargar diferente imagen dependiendo si es una pieza negra o blanca
 	if (iColor == 0)
 		routeImage = QCoreApplication::applicationDirPath() + "/resources/0peon.png";
 	else {
@@ -13,12 +14,12 @@ peon::peon(QGraphicsItem *parent, QPoint coordI, bool iColor) : piezaBase (paren
 	firstMove = true;
 }
 
-peon::peon(const piezaBase &other) : piezaBase(other)
+piezas::peon::peon(const piezaBase &other) : piezaBase(other)
 {
 	this->setPixmap(other.pixmap());
 }
 
-QList<QPoint> peon::movimientos()
+QList<QPoint> piezas::peon::movimientos()
 {
 	QList <QPoint> moves;
 	//Si es una pieza negra

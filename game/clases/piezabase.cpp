@@ -1,45 +1,45 @@
 #include "piezabase.h"
 
-piezaBase::piezaBase(QGraphicsItem *parent, QPoint coordI, bool iColor, tipoPieza iPieza) : QObject (), QGraphicsPixmapItem (parent)
+piezas::piezaBase::piezaBase(QGraphicsItem *parent, QPoint coordI, bool iColor, tipoPieza iPieza) : QObject (), QGraphicsPixmapItem (parent)
 {
 	pieza = iPieza;
 	coordTablero = coordI;
 	color = iColor;
 
-	//this->setPos(16+71*coordI.x(),16+71*coordI.y());
+	//Poner la pieza en su posicion inicial graficamente en el tablero
 	setPos(TAM_SANGRIA + TAM_CUADRO*coordI.x() , TAM_SANGRIA + TAM_CUADRO*coordI.y());
+	setZValue(0);
 }
 
-piezaBase::piezaBase(const piezaBase &other) : QObject (), QGraphicsPixmapItem(other.parentItem())
+piezas::piezaBase::piezaBase(const piezaBase &other) : QObject (), QGraphicsPixmapItem(other.parentItem())
 {
-	this->setPieza(other.getPieza());
-	this->setCoord(other.getCoord());
-	this->setColor(other.getColor());
-	this->setSelectable(other.getSelectable());
-	this->setPixmap(other.pixmap());
+	this->setPieza (other.getPieza());
+	this->setCoord (other.getCoord());
+	this->setColor (other.getColor());
+	this->setSelectable (other.getSelectable());
+	this->setPixmap (other.pixmap());
 }
 
-piezaBase::~piezaBase()
+piezas::piezaBase::~piezaBase()
 {
 	scene()->removeItem(this);
 }
 
-QList<QPoint> piezaBase::movimientos()
+QList<QPoint> piezas::piezaBase::movimientos()
 {
 	QList<QPoint> lista;
 	return lista;
 }
 
-void piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void piezas::piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 	qDebug() << "Pieza click! " << pieza << "\tEvent:" << event;
 
 	//Consigue la lista de movimientos posibles de la pieza
 	QList <QPoint> listaMovs = this->movimientos();
 
-	//Genera los cuadros de seleccion a los que se puede mover la pieza
 	qDebug() << "Creando movimientos";
-
+	//Genera los cuadros de seleccion a los que se puede mover la pieza
 	for (int i = 0, n = listaMovs.size(); i < n ; i++)
 	{
 		cuadroSelect *move = new cuadroSelect(this,listaMovs[i]);
@@ -49,15 +49,18 @@ void piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	}
 }
 
-void piezaBase::move(QPoint coordT)
+void piezas::piezaBase::move(QPoint coordT)
 {
 	QPoint aux = coordTablero;
 	qDebug() << "Slot move!";
 	coordTablero = coordT;
 	QList <QGraphicsItem *> children = this->childItems();
+	//Eliminar todos los cuadros de seleccion de movimiento
 	for (int i = 0, n = children.size(); i < n ; i++)
 	{
 		delete children[i];
 	}
+	/*Mandarle al tablero las coordenadas viejas y nuevas
+	para hacer el cambio dentro de la matriz*/
 	emit piezaMoved(aux,coordTablero);
 }

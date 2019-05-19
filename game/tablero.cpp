@@ -7,6 +7,7 @@ tablero::tablero(QWidget *parent) :
 {
 	ui->setupUi(this);
 
+	//Crear la escena
 	scene = new QGraphicsScene;
 	scene->setSceneRect(0,0,600,600);
 
