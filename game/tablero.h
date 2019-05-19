@@ -1,13 +1,17 @@
 #ifndef TABLERO_H
 #define TABLERO_H
 
+//Libreria de que es un dialogo
 #include <QDialog>
+//Librerias graficas
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
-#include <QTextBrowser>
-#include <QtDebug>
+//Tipos de datos
+#include <QPoint>
 
 #include "game/clases/peon.h"
+
+#include <QtDebug>
 
 namespace Ui {
 class tablero;
@@ -15,7 +19,7 @@ class tablero;
 
 class tablero : public QDialog
 {
-		Q_OBJECT
+	Q_OBJECT
 
 	public:
 		explicit tablero(QWidget *parent = nullptr);
@@ -23,9 +27,12 @@ class tablero : public QDialog
 
 	private:
 		Ui::tablero *ui;
-		QTextBrowser *log;
 		QGraphicsScene *scene;
 		QGraphicsPixmapItem *pieza;
+		piezaBase *matrizPiezas[8][8];
+
+	public slots:
+		void piezaMovida(QPoint oldCoord, QPoint newCoord);
 };
 
 #endif // TABLERO_H

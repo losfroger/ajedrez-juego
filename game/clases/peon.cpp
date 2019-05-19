@@ -13,17 +13,40 @@ peon::peon(QGraphicsItem *parent, QPoint coordI, bool iColor) : piezaBase (paren
 	firstMove = true;
 }
 
+peon::peon(const piezaBase &other) : piezaBase(other)
+{
+	this->setPixmap(other.pixmap());
+}
+
 QList<QPoint> peon::movimientos()
 {
 	QList <QPoint> moves;
-	if(firstMove == true)
+	//Si es una pieza negra
+	if (this->getColor() == 1)
 	{
-		if (this->getPos().y()+2 < 8)
-		moves.append(QPoint(this->getPos().x(),this->getPos().y()+2));
-	}
-	if(this->getPos().y()+1 < 8)
-		moves.append(QPoint(this->getPos().x(),this->getPos().y()+1));
+		if(firstMove == true)
+		{
+			if (this->getCoord().y()+2 <= 7)
+				//Indica que se puede mover dos casillas abajo en y
+				moves.append(QPoint(getCoord().x() , getCoord().y()+2));
+		}
+		if(this->getCoord().y()+1 <= 7)
+			moves.append(QPoint(getCoord().x() , getCoord().y()+1));
 
-	firstMove = false;
+		firstMove = false;
+	}
+	//Si es una pieza blanca
+	else
+	{
+		if(firstMove == true)
+		{
+			if (this->getCoord().y()-2 >= 0)
+				moves.append(QPoint(getCoord().x() , getCoord().y()-2));
+		}
+		if(this->getCoord().y()-1 >= 0)
+			moves.append(QPoint(getCoord().x() , getCoord().y()-1));
+
+		firstMove = false;
+	}
 	return moves;
 }
