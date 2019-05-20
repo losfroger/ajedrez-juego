@@ -27,9 +27,14 @@ CONFIG += c++14
 SOURCES += \
         acerca/acercade.cpp \
         error/error.cpp \
+        game/clases/alfil.cpp \
+        game/clases/caballo.cpp \
         game/clases/cuadroselect.cpp \
         game/clases/peon.cpp \
         game/clases/piezabase.cpp \
+        game/clases/reina.cpp \
+        game/clases/rey.cpp \
+        game/clases/torre.cpp \
         game/tablero.cpp \
         main.cpp \
         menu.cpp
@@ -37,9 +42,14 @@ SOURCES += \
 HEADERS += \
         acerca/acercade.h \
         error/error.h \
+        game/clases/alfil.h \
+        game/clases/caballo.h \
         game/clases/cuadroselect.h \
         game/clases/peon.h \
         game/clases/piezabase.h \
+        game/clases/reina.h \
+        game/clases/rey.h \
+        game/clases/torre.h \
         game/tablero.h \
         menu.hpp
 

@@ -10,6 +10,12 @@
 #include <QPoint>
 
 #include "game/clases/peon.h"
+#include "game/clases/torre.h"
+#include "game/clases/caballo.h"
+#include "game/clases/alfil.h"
+#include "game/clases/rey.h"
+#include "game/clases/reina.h"
+
 
 #include <QtDebug>
 

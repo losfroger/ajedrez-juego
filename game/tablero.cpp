@@ -31,7 +31,7 @@ tablero::tablero(QWidget *parent) :
 		}
 	}
 
-	//TEST
+	//TEST TABLERO
 	//Crear peones negros
 	for (int i = 0; i <  8; i++)
 	{
@@ -39,10 +39,73 @@ tablero::tablero(QWidget *parent) :
 		connect(matrizPiezas[i][1], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
 		scene->addItem(matrizPiezas[i][1]);
 	}
-	//Crear un peon blanco
-	matrizPiezas[0][3] = new peon(nullptr,QPoint(0,3),0);
-	connect(matrizPiezas[0][3], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
-	scene->addItem(matrizPiezas[0][3]);
+	//Crear peones blancos
+	for (int i = 0; i <  8; i++)
+	{
+		matrizPiezas[i][6] = new peon(nullptr,QPoint(i,6),0);
+		connect(matrizPiezas[i][6], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
+		scene->addItem(matrizPiezas[i][6]);
+	}
+	//Crear torres
+	for (int i = 0 ; i < 8; i+=7)
+	{
+		for (int j = 0; j < 8 ; j+= 7)
+		{
+			if(j>0)
+				matrizPiezas[i][j] = new torre(nullptr,QPoint(i,j),0);
+			else
+				matrizPiezas[i][j] = new torre(nullptr,QPoint(i,j),1);
+			connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
+			scene->addItem(matrizPiezas[i][j]);
+		}
+	}
+	//Crear caballos
+	for (int i = 1 ; i < 8; i+=5)
+	{
+		for (int j = 0; j < 8 ; j+= 7)
+		{
+			if(j>0)
+				matrizPiezas[i][j] = new caballo(nullptr,QPoint(i,j),0);
+			else
+				matrizPiezas[i][j] = new caballo(nullptr,QPoint(i,j),1);
+			connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
+			scene->addItem(matrizPiezas[i][j]);
+		}
+	}
+	//Crear alfiles
+	for (int i = 2 ; i < 8; i+=3)
+	{
+		for (int j = 0; j < 8 ; j+= 7)
+		{
+			if(j>0)
+				matrizPiezas[i][j] = new alfil(nullptr,QPoint(i,j),0);
+			else
+				matrizPiezas[i][j] = new alfil(nullptr,QPoint(i,j),1);
+			connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
+			scene->addItem(matrizPiezas[i][j]);
+		}
+	}
+	//Crear reyes
+	int i = 3;
+	for (int j = 0; j < 8 ; j+= 7)
+	{
+		if(j>0)
+			matrizPiezas[i][j] = new rey(nullptr,QPoint(i,j),0);
+		else
+			matrizPiezas[i][j] = new rey(nullptr,QPoint(i,j),1);
+		connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
+		scene->addItem(matrizPiezas[i][j]);
+	}
+	i = 4;
+	for (int j = 0; j < 8 ; j+= 7)
+	{
+		if(j>0)
+			matrizPiezas[i][j] = new reina(nullptr,QPoint(i,j),0);
+		else
+			matrizPiezas[i][j] = new reina(nullptr,QPoint(i,j),1);
+		connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
+		scene->addItem(matrizPiezas[i][j]);
+	}
 
 
 	//Asignar la escena a la ventana de juego
