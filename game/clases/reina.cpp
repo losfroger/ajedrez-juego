@@ -1,10 +1,10 @@
 #include "reina.h"
 
-piezas::reina::reina(QGraphicsItem *parent, QPoint coordI, bool iColor) : piezaBase (parent, coordI, iColor, REINA)
+piezas::reina::reina(QGraphicsItem *parent, QPoint coordI, colorP iColor) : piezaBase (parent, coordI, iColor, REINA)
 {
 	QString routeImage;
 	//Cargar diferente imagen dependiendo si es una pieza negra o blanca
-	if (iColor == 0)
+	if (iColor == BLANCA)
 		routeImage = QCoreApplication::applicationDirPath() + "/resources/0reina.png";
 	else {
 		routeImage = QCoreApplication::applicationDirPath() + "/resources/1reina.png";

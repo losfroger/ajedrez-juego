@@ -16,7 +16,7 @@ class peon : public piezaBase
 		@param [in] parent Padre objeto
 		@param [in] coordI Coordenada del tablero donde va a estar la pieza
 		@param [in] iColor Color de la pieza*/
-		peon(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), bool iColor = 0);
+		peon(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA, piezaBase ***nTablero = nullptr);
 
 		///Constructor copia
 		peon(const piezaBase &other);

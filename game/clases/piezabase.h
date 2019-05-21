@@ -31,13 +31,21 @@ enum tipoPieza
 	REY
 };
 
+enum colorP
+{
+	VACIA,
+	BLANCA,
+	NEGRA
+};
+
+
 namespace piezas {
 
 using namespace piezas;
 
 ///Pieza base
 /**
-0 = blanco y 1 = negro
+BLANCA = blanco , NEGRA = negra
 
 Implementa:
 - El click en el objeto
@@ -52,7 +60,8 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		@param [in] parent Padre del objeto
 		@param [in] coordI Coordenada inicial en el tablero (va de 0,0 a 7,7)
 		@param [in] iColor Color inicial de la pieza (0 = blanca, 1 = negra)*/
-		piezaBase(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), bool iColor = 0, tipoPieza iPieza = BASE);
+		piezaBase(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0),
+				  colorP iColor = VACIA, tipoPieza iPieza = BASE, piezaBase ***nTablero = nullptr);
 		///Constructor copia
 		piezaBase(const piezaBase &other);
 
@@ -91,9 +100,9 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		QPoint getCoord() const {return coordTablero;}
 
 		///Cambiar el color de la pieza (0 = blanco, 1 = negro)
-		void setColor (bool newColor) {color = newColor;}
+		void setColor (colorP newColor) {color = newColor;}
 		///Conseguir el color de la pieza
-		bool getColor() const {return color;}
+		colorP getColor() const {return color;}
 
 		///Cambiar si la pieza se puede seleccionar o no
 		void setSelectable(bool newS) {selectable = newS;}
@@ -112,14 +121,16 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		Manda las coordenadas viejas y nuevas de la pieza*/
 		void piezaMoved(QPoint oldCoord, QPoint newCoord);
 		///Hacer que todas las piezas del mismo equipo se puedan seleccionar
-		void teamSelect(bool team);
+		void teamSelect(colorP team);
 		///Hacer que todas las piezas del mismo equipo NO se puedan seleccionar
-		void teamUnselect(bool team);
+		void teamUnselect(colorP team);
 
+	protected:
+		piezaBase ***tablero;
 	private:
 		tipoPieza pieza; //!< Tipo de pieza
 		QPoint coordTablero; //!< Posicion de la pieza en el tablero
-		bool color; //!< Blanco = 0, negro = 1
+		colorP color;
 		bool selectable; //!< Si se puede seleccionar la pieza
 };
 

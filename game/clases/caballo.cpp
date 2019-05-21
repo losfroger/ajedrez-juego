@@ -1,10 +1,10 @@
 #include "caballo.h"
 
-piezas::caballo::caballo(QGraphicsItem *parent, QPoint coordI, bool iColor) : piezaBase (parent, coordI, iColor, CABALLO)
+piezas::caballo::caballo(QGraphicsItem *parent, QPoint coordI, colorP iColor) : piezaBase (parent, coordI, iColor, CABALLO)
 {
 	QString routeImage;
 	//Cargar diferente imagen dependiendo si es una pieza negra o blanca
-	if (iColor == 0)
+	if (iColor == BLANCA)
 		routeImage = QCoreApplication::applicationDirPath() + "/resources/0caballo.png";
 	else {
 		routeImage = QCoreApplication::applicationDirPath() + "/resources/1caballo.png";

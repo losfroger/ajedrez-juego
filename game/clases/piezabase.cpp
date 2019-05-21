@@ -1,6 +1,7 @@
 #include "piezabase.h"
 
-piezas::piezaBase::piezaBase(QGraphicsItem *parent, QPoint coordI, bool iColor, tipoPieza iPieza) : QObject (), QGraphicsPixmapItem (parent)
+piezas::piezaBase::piezaBase(QGraphicsItem *parent, QPoint coordI,
+							 colorP iColor, tipoPieza iPieza, piezaBase ***nTablero) : QObject (), QGraphicsPixmapItem (parent)
 {
 	pieza = iPieza;
 	coordTablero = coordI;
@@ -9,6 +10,8 @@ piezas::piezaBase::piezaBase(QGraphicsItem *parent, QPoint coordI, bool iColor, 
 	//Poner la pieza en su posicion inicial graficamente en el tablero
 	setPos(TAM_SANGRIA + TAM_CUADRO*coordI.x() , TAM_SANGRIA + TAM_CUADRO*coordI.y());
 	setZValue(0);
+
+	tablero = nTablero;
 }
 
 piezas::piezaBase::piezaBase(const piezaBase &other) : QObject (), QGraphicsPixmapItem(other.parentItem())
@@ -18,6 +21,7 @@ piezas::piezaBase::piezaBase(const piezaBase &other) : QObject (), QGraphicsPixm
 	this->setColor (other.getColor());
 	this->setSelectable (other.getSelectable());
 	this->setPixmap (other.pixmap());
+	tablero = other.tablero;
 }
 
 piezas::piezaBase::~piezaBase()

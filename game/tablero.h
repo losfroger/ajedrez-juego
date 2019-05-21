@@ -37,12 +37,12 @@ class tablero : public QDialog
 		int turno;
 		Ui::tablero *ui;
 		QGraphicsScene *scene; //!< Escena donde se ponen las imagenes
-		piezaBase *matrizPiezas[8][8]; //!< Matriz de las piezas del tablero
+		piezaBase ***matrizPiezas; //!< Matriz de las piezas del tablero
 
 	public slots:
 		void piezaMovida (QPoint oldCoord, QPoint newCoord);
-		void teamSelectable (bool team);
-		void teamUnselectable (bool team);
+		void teamSelectable (colorP team);
+		void teamUnselectable (colorP team);
 };
 
 #endif // TABLERO_H

@@ -16,7 +16,7 @@ class alfil : public piezaBase
 		@param [in] parent Padre objeto
 		@param [in] coordI Coordenada del tablero donde va a estar la pieza
 		@param [in] iColor Color de la pieza*/
-		alfil(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), bool iColor = 0);
+		alfil(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA);
 
 		///Constructor copia
 		alfil(const piezaBase &other);
