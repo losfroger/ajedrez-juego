@@ -30,17 +30,19 @@ class tablero : public QDialog
 	Q_OBJECT
 
 	public:
-		explicit tablero(QWidget *parent = nullptr);
+		explicit tablero (QWidget *parent = nullptr);
 		~tablero();
 
 	private:
+		int turno;
 		Ui::tablero *ui;
-		QGraphicsScene *scene;
-		QGraphicsPixmapItem *pieza;
-		piezaBase *matrizPiezas[8][8];
+		QGraphicsScene *scene; //!< Escena donde se ponen las imagenes
+		piezaBase *matrizPiezas[8][8]; //!< Matriz de las piezas del tablero
 
 	public slots:
-		void piezaMovida(QPoint oldCoord, QPoint newCoord);
+		void piezaMovida (QPoint oldCoord, QPoint newCoord);
+		void teamSelectable (bool team);
+		void teamUnselectable (bool team);
 };
 
 #endif // TABLERO_H

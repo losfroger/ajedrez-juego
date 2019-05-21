@@ -73,6 +73,12 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		seleccionada, poder deseleccionarla.*/
 		void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
+		///Funcion llamada cuando se movio la pieza
+		/**
+		Util en casos como el del peon, que necesita saber cuando ya se ha movido*/
+		virtual void positionChanged();
+
+
 		//SETTERS AND GETTERS
 		///Cambiar el valor del tipo de pieza
 		void setPieza (tipoPieza newPieza) {pieza = newPieza;}
@@ -100,12 +106,15 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		Elimina todas las cajas de seleccion y establece la nueva posicion de la pieza
 		@param [in] coordT las nuevas coordenadas en el tablero de la pieza*/
 		void move(QPoint coordT);
-
 	signals:
 		///Mandar señal al tablero de que se movio la pieza
 		/**
 		Manda las coordenadas viejas y nuevas de la pieza*/
 		void piezaMoved(QPoint oldCoord, QPoint newCoord);
+		///Hacer que todas las piezas del mismo equipo se puedan seleccionar
+		void teamSelect(bool team);
+		///Hacer que todas las piezas del mismo equipo NO se puedan seleccionar
+		void teamUnselect(bool team);
 
 	private:
 		tipoPieza pieza; //!< Tipo de pieza

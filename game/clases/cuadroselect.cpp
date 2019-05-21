@@ -8,7 +8,7 @@ piezas::cuadroSelect::cuadroSelect(QGraphicsItem *parent, QPoint coordI) : QObje
 	setZValue(500);
 	//Cambiar su color y opacidad
 	setBrush(QBrush(Qt::green));
-	setOpacity(0.5);
+	setOpacity(0.2);
 	coordT = coordI;
 }
 

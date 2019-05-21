@@ -26,6 +26,9 @@ class peon : public piezaBase
 		Funcion que calcula los movimientos que puede hacer la pieza
 		@return Lista con los movimientos posibles expresados en coordenadas del tablero*/
 		QList<QPoint> movimientos();
+
+		void positionChanged();
+
 	private:
 		bool firstMove; //!< Si es el primer movimiento del peon
 };

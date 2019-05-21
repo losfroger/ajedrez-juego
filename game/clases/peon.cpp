@@ -33,8 +33,6 @@ QList<QPoint> piezas::peon::movimientos()
 		}
 		if(this->getCoord().y()+1 <= 7)
 			moves.append(QPoint(getCoord().x() , getCoord().y()+1));
-
-		firstMove = false;
 	}
 	//Si es una pieza blanca
 	else
@@ -46,8 +44,11 @@ QList<QPoint> piezas::peon::movimientos()
 		}
 		if(this->getCoord().y()-1 >= 0)
 			moves.append(QPoint(getCoord().x() , getCoord().y()-1));
-
-		firstMove = false;
 	}
 	return moves;
+}
+
+void piezas::peon::positionChanged()
+{
+	firstMove = false;
 }

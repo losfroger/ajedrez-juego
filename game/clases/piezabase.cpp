@@ -34,23 +34,41 @@ QList<QPoint> piezas::piezaBase::movimientos()
 void piezas::piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 	qDebug() << "Pieza click! " << pieza << "\tEvent:" << event;
-
-	//Consigue la lista de movimientos posibles de la pieza
-	QList <QPoint> listaMovs = this->movimientos();
-
-	qDebug() << "Creando movimientos";
-	//Genera los cuadros de seleccion a los que se puede mover la pieza
-	for (int i = 0, n = listaMovs.size(); i < n ; i++)
+	if (event->button() == Qt::LeftButton && selectable == true)
 	{
-		cuadroSelect *move = new cuadroSelect(this,listaMovs[i]);
-		scene()->addItem(move);
-		//Conectar la señal del cuadrado al objeto.
-		connect(move , SIGNAL(selected(QPoint)), this, SLOT(move(QPoint)) );
+		//Consigue la lista de movimientos posibles de la pieza
+		QList <QPoint> listaMovs = this->movimientos();
+		qDebug() << "Creando movimientos, cantidad de movimientos posibles: " << listaMovs.size();
+		if (listaMovs.size() > 0)
+		{
+			emit teamUnselect(getColor());
+			//Genera los cuadros de seleccion a los que se puede mover la pieza
+			for (int i = 0, n = listaMovs.size(); i < n ; i++)
+			{
+				cuadroSelect *move = new cuadroSelect(this,listaMovs[i]);
+				//scene()->addItem(move);
+				//Conectar la señal del cuadrado al objeto.
+				connect(move , SIGNAL(selected(QPoint)), this, SLOT(move(QPoint)) );
+			}
+		}
+	}
+	else if (event->button() == Qt::RightButton && selectable == false)
+	{
+		emit teamSelect(getColor());
+		selectable = true;
+		QList <QGraphicsItem *> children = this->childItems();
+		for (int i = 0, n = children.size(); i < n ; i++)
+			delete children[i];
 	}
 }
 
+void piezas::piezaBase::positionChanged()
+{ }
+
 void piezas::piezaBase::move(QPoint coordT)
 {
+	this->positionChanged();
+
 	QPoint aux = coordTablero;
 	qDebug() << "Slot move!";
 	coordTablero = coordT;
