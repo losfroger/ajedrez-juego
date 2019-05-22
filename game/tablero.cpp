@@ -2,8 +2,8 @@
 #include "ui_tablero.h"
 
 tablero::tablero(QWidget *parent) :
-	QDialog(parent),
-	ui(new Ui::tablero)
+    QDialog(parent),
+    ui(new Ui::tablero)
 {
 
     ui->setupUi(this);
@@ -82,9 +82,9 @@ tablero::tablero(QWidget *parent) :
         for (int j = 0; j < 8 ; j+= 7)
         {
             if(j>0)
-                matrizPiezas[i][j] = new alfil(nullptr,QPoint(i,j),BLANCA);
+                matrizPiezas[i][j] = new alfil(nullptr,QPoint(i,j),BLANCA,matrizPiezas);
             else
-                matrizPiezas[i][j] = new alfil(nullptr,QPoint(i,j),NEGRA);
+                matrizPiezas[i][j] = new alfil(nullptr,QPoint(i,j),NEGRA,matrizPiezas);
             //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
             scene->addItem(matrizPiezas[i][j]);
         }
@@ -141,43 +141,43 @@ tablero::tablero(QWidget *parent) :
 
 tablero::~tablero()
 {
-	for (int w = 0; w < 8; w++)
-		delete[] matrizPiezas[w];
-	delete[] matrizPiezas;
-	delete ui;
+    for (int w = 0; w < 8; w++)
+        delete[] matrizPiezas[w];
+    delete[] matrizPiezas;
+    delete ui;
 }
 
 void tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
 {
-	qDebug() << "Slot tablero! " << oldCoord << "," << newCoord;
+    qDebug() << "Slot tablero! " << oldCoord << "," << newCoord;
 
-	teamUnselectable(matrizPiezas[oldCoord.x()][oldCoord.y()]->getColor());
-	if (matrizPiezas[oldCoord.x()][oldCoord.y()]->getColor() == BLANCA)
-		teamSelectable(NEGRA);
-	else
-		teamSelectable(BLANCA);
+    teamUnselectable(matrizPiezas[oldCoord.x()][oldCoord.y()]->getColor());
+    if (matrizPiezas[oldCoord.x()][oldCoord.y()]->getColor() == BLANCA)
+        teamSelectable(NEGRA);
+    else
+        teamSelectable(BLANCA);
 
-	//Si no es una casilla vacia, eliminar el objeto de la escena
-	if(matrizPiezas[newCoord.x()][newCoord.y()]->getPieza() != BASE)
-		scene->removeItem(matrizPiezas[newCoord.x()][newCoord.y()]);
+    //Si no es una casilla vacia, eliminar el objeto de la escena
+    if(matrizPiezas[newCoord.x()][newCoord.y()]->getPieza() != BASE)
+        scene->removeItem(matrizPiezas[newCoord.x()][newCoord.y()]);
 
-	//Mover la pieza a la posicion nueva
-	matrizPiezas[newCoord.x()][newCoord.y()] = matrizPiezas[oldCoord.x()][oldCoord.y()];
+    //Mover la pieza a la posicion nueva
+    matrizPiezas[newCoord.x()][newCoord.y()] = matrizPiezas[oldCoord.x()][oldCoord.y()];
 
-	//Hacer que la posicion anterior este vacia
-	matrizPiezas[oldCoord.x()][oldCoord.y()] = new piezaBase(nullptr,QPoint(oldCoord.x(),oldCoord.y()));
+    //Hacer que la posicion anterior este vacia
+    matrizPiezas[oldCoord.x()][oldCoord.y()] = new piezaBase(nullptr,QPoint(oldCoord.x(),oldCoord.y()));
 
-	//Escribir en el log
-	QString texto;
-	if (matrizPiezas[newCoord.x()][newCoord.y()]->getColor() == BLANCA)
-		texto += "[Blancas] ";
-	else
-		texto += "[Negras] ";
+    //Escribir en el log
+    QString texto;
+    if (matrizPiezas[newCoord.x()][newCoord.y()]->getColor() == BLANCA)
+        texto += "[Blancas] ";
+    else
+        texto += "[Negras] ";
 
-	texto += "[" + QString::number(oldCoord.x()) + "," + QString::number(oldCoord.y()) + "] a ["
-			 + QString::number(newCoord.x()) + "," + QString::number(newCoord.y()) + "]";
+    texto += "[" + QString::number(oldCoord.x()) + "," + QString::number(oldCoord.y()) + "] a ["
+             + QString::number(newCoord.x()) + "," + QString::number(newCoord.y()) + "]";
 
-	ui->log->append(texto);
+    ui->log->append(texto);
 
 
 
@@ -185,31 +185,31 @@ void tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
 
 void tablero::teamSelectable(colorP team)
 {
-	qDebug() << "Team selectable " << team;
-	for (int i = 0; i < 8; i++)
-	{
-		for (int j = 0; j < 8; j++)
-		{
-			if (matrizPiezas[i][j]->getPieza() != BASE && matrizPiezas[i][j]->getColor() == team)
-			{
-				matrizPiezas[i][j]->setSelectable(true);
-				matrizPiezas[i][j]->update();
-			}
-		}
-	}
+    qDebug() << "Team selectable " << team;
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (matrizPiezas[i][j]->getPieza() != BASE && matrizPiezas[i][j]->getColor() == team)
+            {
+                matrizPiezas[i][j]->setSelectable(true);
+                matrizPiezas[i][j]->update();
+            }
+        }
+    }
 }
 
 void tablero::teamUnselectable(colorP team)
 {
-	qDebug() << "Team unselectable " << team;
-	for (int i = 0; i < 8; i++)
-	{
-		for (int j = 0; j < 8; j++)
-		{
-			if (matrizPiezas[i][j]->getPieza() != BASE && matrizPiezas[i][j]->getColor() == team)
-			{
-				matrizPiezas[i][j]->setSelectable(false);
-			}
-		}
-	}
+    qDebug() << "Team unselectable " << team;
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (matrizPiezas[i][j]->getPieza() != BASE && matrizPiezas[i][j]->getColor() == team)
+            {
+                matrizPiezas[i][j]->setSelectable(false);
+            }
+        }
+    }
 }
