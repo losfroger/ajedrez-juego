@@ -27,10 +27,22 @@ class peon : public piezaBase
 		@return Lista con los movimientos posibles expresados en coordenadas del tablero*/
 		QList<QPoint> movimientos();
 
-		void positionChanged();
+		void positionChanged(QPoint nCoord);
+		void update();
+
+		bool getFirstMove();
 
 	private:
+
+		QList <QPoint> captura;
+
+		int count;
 		bool firstMove; //!< Si es el primer movimiento del peon
+		bool capturaPaso;
+
+	signals:
+		void capturaPasoSignal(QPoint coord);
+
 };
 
 

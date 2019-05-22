@@ -12,6 +12,7 @@ piezas::piezaBase::piezaBase(QGraphicsItem *parent, QPoint coordI,
 	setZValue(0);
 
 	tablero = nTablero;
+	specialA = false;
 }
 
 piezas::piezaBase::piezaBase(const piezaBase &other) : QObject (), QGraphicsPixmapItem(other.parentItem())
@@ -66,12 +67,15 @@ void piezas::piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	}
 }
 
-void piezas::piezaBase::positionChanged()
+void piezas::piezaBase::positionChanged(QPoint nCoord)
+{ }
+
+void piezas::piezaBase::update()
 { }
 
 void piezas::piezaBase::move(QPoint coordT)
 {
-	this->positionChanged();
+	this->positionChanged(coordT);
 
 	QPoint aux = coordTablero;
 	qDebug() << "Slot move!";

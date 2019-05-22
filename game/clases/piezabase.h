@@ -85,7 +85,9 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		///Funcion llamada cuando se movio la pieza
 		/**
 		Util en casos como el del peon, que necesita saber cuando ya se ha movido*/
-		virtual void positionChanged();
+		virtual void positionChanged(QPoint nCoord);
+
+		virtual void update();
 
 
 		//SETTERS AND GETTERS
@@ -109,6 +111,12 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		///Conseguir si la pieza se puede seleccionar o no
 		bool getSelectable() const {return selectable;}
 
+		///Cambiar si la pieza se puede seleccionar o no
+		void setSpecialA(bool newSA) {specialA = newSA;}
+		///Conseguir si la pieza se puede seleccionar o no
+		bool getSpecialA() const {return specialA;}
+
+
 	public slots:
 		///Se activa cuando se escoge una de las cajas de movimiento
 		/**
@@ -128,6 +136,8 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 	protected:
 		piezaBase ***tablero;
 	private:
+		bool specialA;
+
 		tipoPieza pieza; //!< Tipo de pieza
 		QPoint coordTablero; //!< Posicion de la pieza en el tablero
 		colorP color;

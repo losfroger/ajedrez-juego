@@ -190,7 +190,10 @@ void tablero::teamSelectable(colorP team)
 		for (int j = 0; j < 8; j++)
 		{
 			if (matrizPiezas[i][j]->getPieza() != BASE && matrizPiezas[i][j]->getColor() == team)
+			{
 				matrizPiezas[i][j]->setSelectable(true);
+				matrizPiezas[i][j]->update();
+			}
 		}
 	}
 }
@@ -203,7 +206,9 @@ void tablero::teamUnselectable(colorP team)
 		for (int j = 0; j < 8; j++)
 		{
 			if (matrizPiezas[i][j]->getPieza() != BASE && matrizPiezas[i][j]->getColor() == team)
+			{
 				matrizPiezas[i][j]->setSelectable(false);
+			}
 		}
 	}
 }
