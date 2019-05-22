@@ -9,6 +9,7 @@ namespace piezas {
 /**
 # Valor
 - 3 Puntos
+
 # Movimientos:
 
 - Al = Alfil
