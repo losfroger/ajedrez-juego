@@ -8,7 +8,9 @@ namespace piezas {
 
 ///Pieza reina
 /**
-reina*/
+# Valor
+- 9 Puntos
+*/
 class reina : public piezaBase
 {
 	public:

@@ -8,6 +8,9 @@ namespace piezas {
 
 ///Pieza torre
 /**
+# Valor
+- 5 Puntos
+
 Torre*/
 class torre : public piezaBase
 {

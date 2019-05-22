@@ -24,9 +24,7 @@ QList<QPoint> piezas::alfil::movimientos()
 
     int posx=getCoord().x();
     int posy=getCoord().y();
-    /*if(tablero[posx][posy]->getColor()==BLANCA){
-    moves.append(QPoint(posx+1,posy-1));
-}*/
+
     //Movimiento hacia abajo a la derecha
     bool aux=true;
     int x=posx, y=posy;

@@ -38,10 +38,10 @@ QList<QPoint> piezas::peon::movimientos()
 			else
 				moves.append(QPoint(getCoord().x() , getCoord().y()+i));
 		}
-
-		if (getCoord().y()+1 <= 7)
+		//Comer
+		if (getCoord().y()+1 <= 7) //Ver que no se vaya a salir de la matriz
 		{
-			if (getCoord().x()-1 > 0)
+			if (getCoord().x()-1 >= 0)
 			{
 				//Comer en diagonal
 				if(tablero[getCoord().x()-1][getCoord().y()+1]->getColor() != VACIA
@@ -94,7 +94,8 @@ QList<QPoint> piezas::peon::movimientos()
 			else
 				moves.append(QPoint(getCoord().x() , getCoord().y()-i));
 		}
-		if (getCoord().y()-1 <= 7)
+		//Comer
+		if (getCoord().y()-1 <= 7) //Ver que no se vaya a salir de la matriz
 		{
 			if (getCoord().x()-1 > 0)
 			{

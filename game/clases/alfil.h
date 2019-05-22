@@ -7,7 +7,21 @@ namespace piezas {
 
 ///Pieza alfil
 /**
-alfil*/
+# Valor
+- 3 Puntos
+# Movimientos:
+
+- Al = Alfil
+- X = Movimientos posibles
+
+_	 | _    | _    | _    | _
+:--: | :--: | :--: | :--: | :--:
+X	 | '    | '    | '    | X
+'    | X    | '    | X    | '
+'	 | '    | Al   | '    | '
+'    | X    | '    | X    | '
+X	 | '    | '    | '    | X
+*/
 class alfil : public piezaBase
 {
     public:

@@ -32,21 +32,21 @@ tablero::tablero(QWidget *parent) :
     for (int i = 0; i<8; i++)
     {
         for (int j = 0; j<8; j++)
-            matrizPiezas[i][j] = new piezaBase(nullptr,QPoint(i,j),VACIA,BASE,matrizPiezas);
+			matrizPiezas[i][j] = new piezaBase(tablero,QPoint(i,j),VACIA,BASE,matrizPiezas);
     }
 
     //TEST TABLERO
     //Crear peones negros
     for (int i = 0; i <  8; i++)
     {
-        matrizPiezas[i][1] = new peon(nullptr,QPoint(i,1),NEGRA,matrizPiezas);
+		matrizPiezas[i][1] = new peon(tablero,QPoint(i,1),NEGRA,matrizPiezas);
         //connect(matrizPiezas[i][1], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
         scene->addItem(matrizPiezas[i][1]);
     }
     //Crear peones blancos
     for (int i = 0; i <  8; i++)
     {
-        matrizPiezas[i][6] = new peon(nullptr,QPoint(i,6),BLANCA,matrizPiezas);
+		matrizPiezas[i][6] = new peon(tablero,QPoint(i,6),BLANCA,matrizPiezas);
         //connect(matrizPiezas[i][6], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
         scene->addItem(matrizPiezas[i][6]);
     }
@@ -56,9 +56,9 @@ tablero::tablero(QWidget *parent) :
         for (int j = 0; j < 8 ; j+= 7)
         {
             if(j>0)
-                matrizPiezas[i][j] = new torre(nullptr,QPoint(i,j),BLANCA);
+				matrizPiezas[i][j] = new torre(tablero,QPoint(i,j),BLANCA);
             else
-                matrizPiezas[i][j] = new torre(nullptr,QPoint(i,j),NEGRA);
+				matrizPiezas[i][j] = new torre(tablero,QPoint(i,j),NEGRA);
             //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
             scene->addItem(matrizPiezas[i][j]);
         }
@@ -69,9 +69,9 @@ tablero::tablero(QWidget *parent) :
         for (int j = 0; j < 8 ; j+= 7)
         {
             if(j>0)
-                matrizPiezas[i][j] = new caballo(nullptr,QPoint(i,j),BLANCA, matrizPiezas);
+				matrizPiezas[i][j] = new caballo(tablero,QPoint(i,j),BLANCA, matrizPiezas);
             else
-                matrizPiezas[i][j] = new caballo(nullptr,QPoint(i,j),NEGRA, matrizPiezas);
+				matrizPiezas[i][j] = new caballo(tablero,QPoint(i,j),NEGRA, matrizPiezas);
             //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
             scene->addItem(matrizPiezas[i][j]);
         }
@@ -82,9 +82,9 @@ tablero::tablero(QWidget *parent) :
         for (int j = 0; j < 8 ; j+= 7)
         {
             if(j>0)
-                matrizPiezas[i][j] = new alfil(nullptr,QPoint(i,j),BLANCA,matrizPiezas);
+				matrizPiezas[i][j] = new alfil(tablero,QPoint(i,j),BLANCA,matrizPiezas);
             else
-                matrizPiezas[i][j] = new alfil(nullptr,QPoint(i,j),NEGRA,matrizPiezas);
+				matrizPiezas[i][j] = new alfil(tablero,QPoint(i,j),NEGRA,matrizPiezas);
             //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
             scene->addItem(matrizPiezas[i][j]);
         }
@@ -94,9 +94,9 @@ tablero::tablero(QWidget *parent) :
     for (int j = 0; j < 8 ; j+= 7)
     {
         if(j>0)
-            matrizPiezas[i][j] = new rey(nullptr,QPoint(i,j),BLANCA);
+			matrizPiezas[i][j] = new rey(tablero,QPoint(i,j),BLANCA);
         else
-            matrizPiezas[i][j] = new rey(nullptr,QPoint(i,j),NEGRA);
+			matrizPiezas[i][j] = new rey(tablero,QPoint(i,j),NEGRA);
         //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
         scene->addItem(matrizPiezas[i][j]);
     }
@@ -105,17 +105,12 @@ tablero::tablero(QWidget *parent) :
     for (int j = 0; j < 8 ; j+= 7)
     {
         if(j>0)
-            matrizPiezas[i][j] = new reina(nullptr,QPoint(i,j),BLANCA);
+			matrizPiezas[i][j] = new reina(tablero,QPoint(i,j),BLANCA);
         else
-            matrizPiezas[i][j] = new reina(nullptr,QPoint(i,j),NEGRA);
+			matrizPiezas[i][j] = new reina(tablero,QPoint(i,j),NEGRA);
         //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
         scene->addItem(matrizPiezas[i][j]);
     }
-
-    matrizPiezas[0][4] = new caballo(nullptr,QPoint(0,4),BLANCA, matrizPiezas);
-    scene->addItem(matrizPiezas[0][4]);
-
-
 
     //Conectar señales
     for (int i = 0; i < 8; i++)

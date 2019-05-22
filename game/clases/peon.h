@@ -7,7 +7,34 @@ namespace piezas {
 
 ///Pieza peon
 /**
-Con implementacion de movimiento diferente su primer movimiento*/
+# Valor
+- 1 Punto
+
+# Movimientos:
+
+- P = Peon
+- X = Movimientos posibles
+
+##Primer turno:
+
+ _    | _    | _   
+ :--: | :--: | :--:
+ '    | '    | '
+ '    | X    | '
+ '    | X    | '
+ '    | p    | '
+ '    | '    | '
+
+ ## Demas turnos:
+ _    | _    | _
+ :--: | :--: | :--:
+ '    | '    | '
+ '    | '    | '
+ '    | X    | '
+ '    | p    | '
+ '    | '    | '
+
+*/
 class peon : public piezaBase
 {
 	public:
