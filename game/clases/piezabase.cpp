@@ -46,7 +46,7 @@ void piezas::piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		qDebug() << "Creando movimientos, cantidad de movimientos posibles: " << listaMovs.size();
 		if (listaMovs.size() > 0)
 		{
-			emit teamUnselect(getColor());
+			emit teamUnselect(getColor(),false);
 			//Genera los cuadros de seleccion a los que se puede mover la pieza
 			for (int i = 0, n = listaMovs.size(); i < n ; i++)
 			{
@@ -57,9 +57,9 @@ void piezas::piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 			}
 		}
 	}
-	else if (event->button() == Qt::RightButton && selectable == false)
+	else if (event->button() == Qt::RightButton && selectable == false && turno == true)
 	{
-		emit teamSelect(getColor());
+		emit teamSelect(getColor(),false);
 		selectable = true;
 		QList <QGraphicsItem *> children = this->childItems();
 		for (int i = 0, n = children.size(); i < n ; i++)
@@ -68,7 +68,7 @@ void piezas::piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 }
 
 void piezas::piezaBase::positionChanged(QPoint nCoord)
-{ }
+{ nCoord; }
 
 void piezas::piezaBase::update()
 { }

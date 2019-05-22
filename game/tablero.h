@@ -8,7 +8,7 @@
 #include <QGraphicsPixmapItem>
 //Tipos de datos
 #include <QPoint>
-
+//Clases de las piezas
 #include "game/clases/peon.h"
 #include "game/clases/torre.h"
 #include "game/clases/caballo.h"
@@ -25,6 +25,13 @@ class tablero;
 
 using namespace piezas;
 
+///Ventana de juego
+/**
+Contiene:
+
+- El tablero
+- El log
+- Indicador de quien es el turno*/
 class tablero : public QDialog
 {
 	Q_OBJECT
@@ -40,9 +47,22 @@ class tablero : public QDialog
 		piezaBase ***matrizPiezas; //!< Matriz de las piezas del tablero
 
 	public slots:
+		///Cuando se mueve una pieza
+		/**
+		Las coordenadas se expresan en coordenadas del tablero
+		@param [in] oldCoord Coordenada anterior
+		@param [in] newCoord Corrdenada nueva*/
 		void piezaMovida (QPoint oldCoord, QPoint newCoord);
-		void teamSelectable (colorP team);
-		void teamUnselectable (colorP team);
+		///Hacer seleccionable un equipo
+		/**
+		@param [in] team Equipo al que se va a hacer seleccionable
+		@param [in] changeT Si se va a cambiar de turno*/
+		void teamSelectable (colorP team, bool changeT);
+		///Hacer NO seleccionable un equipo
+		/**
+		@param [in] team Equipo al que se va a hacer NO seleccionable
+		@param [in] changeT Si se va a cambiar de turno*/
+		void teamUnselectable (colorP team, bool changeT);
 };
 
 #endif // TABLERO_H

@@ -78,8 +78,10 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		Manda a llamar la funcion de movimientos y a partir de eso
 		genera los cuadrados de a donde se puede llamar la pieza.
 
-		Falta implementar que revise si se puede seleccionar y si esta
-		seleccionada, poder deseleccionarla.*/
+		- Click izquierdo para seleccionar una pieza
+		- Click derecho para deseleccionarla
+
+		Si una pieza esta seleccionada, no se pueden escoger las demas piezas*/
 		void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 		///Funcion llamada cuando se movio la pieza
@@ -87,6 +89,7 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		Util en casos como el del peon, que necesita saber cuando ya se ha movido*/
 		virtual void positionChanged(QPoint nCoord);
 
+		///Funcion que se manda a llamar en cada turno
 		virtual void update();
 
 
@@ -116,6 +119,8 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		///Conseguir si la pieza se puede seleccionar o no
 		bool getSpecialA() const {return specialA;}
 
+		void setTurno(bool newT) {turno = newT;}
+
 
 	public slots:
 		///Se activa cuando se escoge una de las cajas de movimiento
@@ -129,18 +134,27 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		Manda las coordenadas viejas y nuevas de la pieza*/
 		void piezaMoved(QPoint oldCoord, QPoint newCoord);
 		///Hacer que todas las piezas del mismo equipo se puedan seleccionar
-		void teamSelect(colorP team);
+		/**
+		@param [in] team Equipo el cual se debe hacer seleccionable
+		@param [in] changeT Si se quiere cambiar de turno*/
+		void teamSelect(colorP team, bool changeT);
 		///Hacer que todas las piezas del mismo equipo NO se puedan seleccionar
-		void teamUnselect(colorP team);
+		/**
+		@param [in] team Equipo el cual se debe hacer no seleccionable
+		@param [in] changeT Si se quiere cambiar de turno*/
+		void teamUnselect(colorP team, bool changeT);
 
 	protected:
-		piezaBase ***tablero;
+		piezaBase ***tablero; //!< Apuntador a la matriz de piezas, usada para poder consultar la posicion de otras piezas desde una pieza
+
 	private:
-		bool specialA;
+		bool specialA; //!< Booleano usado en condiciones especiales, como el enroque o la captura al paso
+
+		bool turno; //!< Si es el turno de la pieza
 
 		tipoPieza pieza; //!< Tipo de pieza
 		QPoint coordTablero; //!< Posicion de la pieza en el tablero
-		colorP color;
+		colorP color; //!< El equipo de la pieza: Negra, blanca o vacia
 		bool selectable; //!< Si se puede seleccionar la pieza
 };
 
