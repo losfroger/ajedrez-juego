@@ -89,25 +89,25 @@ tablero::tablero(QWidget *parent) :
             scene->addItem(matrizPiezas[i][j]);
         }
     }
-    //Crear reyes
+    //Crear reinas
     int i = 3;
     for (int j = 0; j < 8 ; j+= 7)
     {
         if(j>0)
-			matrizPiezas[i][j] = new rey(tablero,QPoint(i,j),BLANCA);
+            matrizPiezas[i][j] = new reina(tablero,QPoint(i,j),BLANCA, matrizPiezas);
         else
-			matrizPiezas[i][j] = new rey(tablero,QPoint(i,j),NEGRA);
+            matrizPiezas[i][j] = new reina(tablero,QPoint(i,j),NEGRA, matrizPiezas);
         //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
         scene->addItem(matrizPiezas[i][j]);
     }
     i = 4;
-    //Crear reinas
+    //Crear reyes
     for (int j = 0; j < 8 ; j+= 7)
     {
         if(j>0)
-			matrizPiezas[i][j] = new reina(tablero,QPoint(i,j),BLANCA,matrizPiezas);
+            matrizPiezas[i][j] = new rey(tablero,QPoint(i,j),BLANCA,matrizPiezas);
         else
-			matrizPiezas[i][j] = new reina(tablero,QPoint(i,j),NEGRA,matrizPiezas);
+            matrizPiezas[i][j] = new rey(tablero,QPoint(i,j),NEGRA,matrizPiezas);
         //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
         scene->addItem(matrizPiezas[i][j]);
     }

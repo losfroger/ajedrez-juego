@@ -1,6 +1,6 @@
 #include "rey.h"
 
-piezas::rey::rey(QGraphicsItem *parent, QPoint coordI, colorP iColor) : piezaBase (parent, coordI, iColor, REY)
+piezas::rey::rey(QGraphicsItem *parent, QPoint coordI, colorP iColor, piezaBase ***nTablero) : piezaBase (parent, coordI, iColor, REY)
 {
 	QString routeImage;
 	//Cargar diferente imagen dependiendo si es una pieza negra o blanca
