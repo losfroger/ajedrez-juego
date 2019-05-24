@@ -20,7 +20,7 @@ class torre : public piezaBase
 		@param [in] parent Padre objeto
 		@param [in] coordI Coordenada del tablero donde va a estar la pieza
 		@param [in] iColor Color de la pieza*/
-		torre(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA);
+		torre(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA,piezaBase ***nTablero = nullptr);
 
 		///Constructor copia
 		torre(const piezaBase &other);

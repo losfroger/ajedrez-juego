@@ -19,7 +19,7 @@ class reina : public piezaBase
 		@param [in] parent Padre objeto
 		@param [in] coordI Coordenada del tablero donde va a estar la pieza
 		@param [in] iColor Color de la pieza*/
-		reina(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA);
+		reina(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA,piezaBase ***nTablero = nullptr);
 
 		///Constructor copia
 		reina(const piezaBase &other);
