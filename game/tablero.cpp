@@ -136,6 +136,7 @@ tablero::tablero(QWidget *parent) :
 
 tablero::~tablero()
 {
+	delete scene;
     for (int w = 0; w < 8; w++)
         delete[] matrizPiezas[w];
     delete[] matrizPiezas;
@@ -152,14 +153,14 @@ void tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
     else
 		teamSelectable(BLANCA, true);
 
-    //Si no es una casilla vacia, eliminar el objeto de la escena
-    if(matrizPiezas[newCoord.x()][newCoord.y()]->getPieza() != BASE)
-        scene->removeItem(matrizPiezas[newCoord.x()][newCoord.y()]);
+	//Eliminar lo que este en la nueva posicion
+	delete matrizPiezas[newCoord.x()][newCoord.y()];
 
     //Mover la pieza a la posicion nueva
     matrizPiezas[newCoord.x()][newCoord.y()] = matrizPiezas[oldCoord.x()][oldCoord.y()];
 
     //Hacer que la posicion anterior este vacia
+	matrizPiezas[oldCoord.x()][oldCoord.y()] = nullptr;
     matrizPiezas[oldCoord.x()][oldCoord.y()] = new piezaBase(nullptr,QPoint(oldCoord.x(),oldCoord.y()));
 
     //Escribir en el log

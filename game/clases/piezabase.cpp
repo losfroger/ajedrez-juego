@@ -1,7 +1,8 @@
 #include "piezabase.h"
 
 piezas::piezaBase::piezaBase(QGraphicsItem *parent, QPoint coordI,
-							 colorP iColor, tipoPieza iPieza, piezaBase ***nTablero) : QObject (), QGraphicsPixmapItem (parent)
+							 colorP iColor, tipoPieza iPieza, piezaBase ***nTablero)
+	: QObject (), QGraphicsPixmapItem (parent)
 {
 	pieza = iPieza;
 	coordTablero = coordI;
@@ -27,7 +28,8 @@ piezas::piezaBase::piezaBase(const piezaBase &other) : QObject (), QGraphicsPixm
 
 piezas::piezaBase::~piezaBase()
 {
-	scene()->removeItem(this);
+	if(getPieza()!=BASE)
+		scene()->removeItem(this);
 }
 
 QList<QPoint> piezas::piezaBase::movimientos()
@@ -83,9 +85,7 @@ void piezas::piezaBase::move(QPoint coordT)
 	QList <QGraphicsItem *> children = this->childItems();
 	//Eliminar todos los cuadros de seleccion de movimiento
 	for (int i = 0, n = children.size(); i < n ; i++)
-	{
 		delete children[i];
-	}
 	/*Mandarle al tablero las coordenadas viejas y nuevas
 	para hacer el cambio dentro de la matriz*/
 	emit piezaMoved(aux,coordTablero);

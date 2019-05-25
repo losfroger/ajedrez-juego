@@ -7,9 +7,6 @@ menu::menu(QWidget *parent) :
 {
 	ui->setupUi(this);
 
-	//Configurar acerca de
-	acerca = new acercaDe(this);
-
 	//Poner imagen del menu
 	QString s = QCoreApplication::applicationDirPath() + "/resources/menu.png";
 	QPixmap menuImage;
@@ -42,7 +39,9 @@ void menu::on_salir_clicked()
 //Abrir el dialogo de acerca de si se le da click al boton
 void menu::on_acerca_clicked()
 {
+	acerca = new acercaDe(this);
 	acerca->exec();
+	delete  acerca;
 }
 
 //Abrir la ventana de juego
@@ -51,5 +50,6 @@ void menu::on_jugar_clicked()
 	hide();
 	juego = new tablero(this);
 	juego->exec();
+	delete juego;
 	show();
 }
