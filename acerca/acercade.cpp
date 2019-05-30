@@ -29,3 +29,8 @@ void acercaDe::on_aceptar_clicked()
 {
 	this->accept();
 }
+
+void acercaDe::on_AboutQt_pressed()
+{
+	QApplication::aboutQt();
+}

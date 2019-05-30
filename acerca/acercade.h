@@ -22,6 +22,8 @@ class acercaDe : public QDialog
 	private slots:
 		void on_aceptar_clicked();
 
+		void on_AboutQt_pressed();
+
 	private:
 		Ui::acercaDe *ui;
 };

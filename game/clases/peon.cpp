@@ -1,4 +1,6 @@
 #include "peon.h"
+#include "game/global.hpp"
+#include "game/coronacionpeon.h"
 
 piezas::peon::peon(QGraphicsItem *parent, QPoint coordI,
 				   colorP iColor, piezaBase ***nTablero) : piezaBase (parent, coordI, iColor, PEON,nTablero)
@@ -171,6 +173,31 @@ void piezas::peon::positionChanged(QPoint nCoord)
 		setSpecialA(true);
 		count = 0;
 	}
+	// Promocion peon negro
+	if (this->getColor() == NEGRA && nCoord.y() == 7)
+	{
+		//Generar la ventana
+		coronacionPeon *promocion = new coronacionPeon(juego,1,getCoord(),nCoord);
+		connect(promocion, SIGNAL(returnSelect(int,QPoint,QPoint)), juego, SLOT(promocion(int,QPoint,QPoint)));
+		//Si se cierra la ventana sin haber escogido un tipo de pieza se genera una reina por default
+		if (promocion->exec()!=true)
+		{
+			qDebug() << "\nPromocion cancelada\n";
+			juego->promocion(0,getCoord(),nCoord);
+		}
+	}
+	if (this->getColor() == BLANCA && nCoord.y() == 0)
+	{
+		//Generar la ventana
+		coronacionPeon *promocion = new coronacionPeon(juego,0,getCoord(),nCoord);
+		connect(promocion, SIGNAL(returnSelect(int,QPoint,QPoint)), juego, SLOT(promocion(int,QPoint,QPoint)));
+		//Si se cierra la ventana sin haber escogido un tipo de pieza se genera una reina por default
+		if (promocion->exec()!=true)
+		{
+			qDebug() << "\nPromocion cancelada\n";
+			juego->promocion(0,getCoord(),nCoord);
+		}
+	}
 }
 
 void piezas::peon::update()
@@ -183,3 +210,5 @@ bool piezas::peon::getFirstMove()
 {
 	return firstMove;
 }
+
+

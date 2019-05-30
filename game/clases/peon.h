@@ -1,7 +1,8 @@
-#ifndef PEON_H
+﻿#ifndef PEON_H
 #define PEON_H
 
 #include "game/clases/piezabase.h"
+
 
 namespace piezas {
 

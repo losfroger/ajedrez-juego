@@ -1,5 +1,7 @@
 #include "piezabase.h"
 
+#include "game/clases/reina.h"
+
 piezas::piezaBase::piezaBase(QGraphicsItem *parent, QPoint coordI,
 							 colorP iColor, tipoPieza iPieza, piezaBase ***nTablero) : QObject (), QGraphicsPixmapItem (parent)
 {
@@ -13,6 +15,7 @@ piezas::piezaBase::piezaBase(QGraphicsItem *parent, QPoint coordI,
 
 	tablero = nTablero;
 	specialA = false;
+	lastClicked = false;
     jaque_blancas = false;
     jaque_negras = false;
 }
@@ -49,6 +52,7 @@ void piezas::piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		if (listaMovs.size() > 0)
 		{
 			emit teamUnselect(getColor(),false);
+			lastClicked = true;
 			//Genera los cuadros de seleccion a los que se puede mover la pieza
 			for (int i = 0, n = listaMovs.size(); i < n ; i++)
 			{
@@ -59,8 +63,9 @@ void piezas::piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 			}
 		}
 	}
-	else if (event->button() == Qt::RightButton && selectable == false && turno == true)
+	else if (event->button() == Qt::RightButton && selectable == false && turno == true && lastClicked == true)
 	{
+		lastClicked = false;
 		emit teamSelect(getColor(),false);
 		selectable = true;
 		QList <QGraphicsItem *> children = this->childItems();
@@ -77,20 +82,19 @@ void piezas::piezaBase::update()
 
 void piezas::piezaBase::move(QPoint coordT)
 {
-	this->positionChanged(coordT);
-
 	QPoint aux = coordTablero;
 	qDebug() << "Slot move!";
-	coordTablero = coordT;
 	QList <QGraphicsItem *> children = this->childItems();
 	//Eliminar todos los cuadros de seleccion de movimiento
 	for (int i = 0, n = children.size(); i < n ; i++)
-	{
 		delete children[i];
-	}
+
+	coordTablero = coordT;
+
 	/*Mandarle al tablero las coordenadas viejas y nuevas
 	para hacer el cambio dentro de la matriz*/
-	emit piezaMoved(aux,coordTablero);
+	emit piezaMoved(aux,coordT);
+	this->positionChanged(coordT);
 }
 
 unsigned int piezas::check(piezaBase ***ntablero, QPoint coordI, colorP colorpieza, QList <QPoint> *arreglo_jaque)

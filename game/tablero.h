@@ -42,6 +42,7 @@ class tablero : public QDialog
 
 	private:
 		int turno;
+		QGraphicsPixmapItem *tableroBG;
 		Ui::tablero *ui;
 		QGraphicsScene *scene; //!< Escena donde se ponen las imagenes
 		piezaBase ***matrizPiezas; //!< Matriz de las piezas del tablero
@@ -63,6 +64,8 @@ class tablero : public QDialog
 		@param [in] team Equipo al que se va a hacer NO seleccionable
 		@param [in] changeT Si se va a cambiar de turno*/
 		void teamUnselectable (colorP team, bool changeT);
+
+		void promocion(int type, QPoint oldCoord, QPoint newCoord);
 };
 
 #endif // TABLERO_H

@@ -1,5 +1,5 @@
 #include "tablero.h"
-#include "global.hpp"
+#include "game/global.hpp"
 #include <QPoint>
 #include "ui_tablero.h"
 
@@ -23,10 +23,10 @@ tablero::tablero(QWidget *parent) :
     ui->gameView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     //Mostrar imagen de fondo del tablero
-    QGraphicsPixmapItem *tablero = new QGraphicsPixmapItem;
+	tableroBG = new QGraphicsPixmapItem;
     QString routeTablero = QCoreApplication::applicationDirPath() + "/resources/tablero.png";
-    tablero->setPixmap(routeTablero);
-    scene->addItem(tablero);
+	tableroBG->setPixmap(routeTablero);
+	scene->addItem(tableroBG);
 
     //TABLERO DINAMICO
     matrizPiezas = new piezaBase**[8];
@@ -37,73 +37,73 @@ tablero::tablero(QWidget *parent) :
     for (int i = 0; i<8; i++)
     {
         for (int j = 0; j<8; j++)
-			matrizPiezas[i][j] = new piezaBase(tablero,QPoint(i,j),VACIA,BASE,matrizPiezas);
+			matrizPiezas[i][j] = new piezaBase(tableroBG,QPoint(i,j),VACIA,BASE,matrizPiezas);
     }
 
     //TEST TABLERO
     //Crear peones negros
-    for (int i = 0; i <  8; i++)
+	for (int i = 0; i <  8; i++)
     {
-		matrizPiezas[i][1] = new peon(tablero,QPoint(i,1),NEGRA,matrizPiezas);
+		matrizPiezas[i][1] = new peon(tableroBG,QPoint(i,1),NEGRA,matrizPiezas);
         //connect(matrizPiezas[i][1], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
-        scene->addItem(matrizPiezas[i][1]);
-    }
+		//scene->addItem(matrizPiezas[i][5]);
+	}
     //Crear peones blancos
-    for (int i = 0; i <  8; i++)
+	for (int i = 0; i <  8; i++)
     {
-		matrizPiezas[i][6] = new peon(tablero,QPoint(i,6),BLANCA,matrizPiezas);
+		matrizPiezas[i][6] = new peon(tableroBG,QPoint(i,6),BLANCA,matrizPiezas);
         //connect(matrizPiezas[i][6], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
-        scene->addItem(matrizPiezas[i][6]);
-    }
+		//scene->addItem(matrizPiezas[i][6]);
+	}
     //Crear torres
     for (int i = 0 ; i < 8; i+=7)
     {
         for (int j = 0; j < 8 ; j+= 7)
         {
             if(j>0)
-				matrizPiezas[i][j] = new torre(tablero,QPoint(i,j),BLANCA, matrizPiezas);
+				matrizPiezas[i][j] = new torre(tableroBG,QPoint(i,j),BLANCA, matrizPiezas);
             else
-				matrizPiezas[i][j] = new torre(tablero,QPoint(i,j),NEGRA, matrizPiezas);
+				matrizPiezas[i][j] = new torre(tableroBG,QPoint(i,j),NEGRA, matrizPiezas);
             //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
-            scene->addItem(matrizPiezas[i][j]);
+			//scene->addItem(matrizPiezas[i][j]);
         }
-    }
+	}
     //Crear caballos
     for (int i = 1 ; i < 8; i+=5)
     {
         for (int j = 0; j < 8 ; j+= 7)
         {
             if(j>0)
-				matrizPiezas[i][j] = new caballo(tablero,QPoint(i,j),BLANCA, matrizPiezas);
+				matrizPiezas[i][j] = new caballo(tableroBG,QPoint(i,j),BLANCA, matrizPiezas);
             else
-				matrizPiezas[i][j] = new caballo(tablero,QPoint(i,j),NEGRA, matrizPiezas);
+				matrizPiezas[i][j] = new caballo(tableroBG,QPoint(i,j),NEGRA, matrizPiezas);
             //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
-            scene->addItem(matrizPiezas[i][j]);
+			//scene->addItem(matrizPiezas[i][j]);
         }
-    }
+	}
     //Crear alfiles
     for (int i = 2 ; i < 8; i+=3)
     {
         for (int j = 0; j < 8 ; j+= 7)
         {
             if(j>0)
-				matrizPiezas[i][j] = new alfil(tablero,QPoint(i,j),BLANCA,matrizPiezas);
+				matrizPiezas[i][j] = new alfil(tableroBG,QPoint(i,j),BLANCA,matrizPiezas);
             else
-				matrizPiezas[i][j] = new alfil(tablero,QPoint(i,j),NEGRA,matrizPiezas);
+				matrizPiezas[i][j] = new alfil(tableroBG,QPoint(i,j),NEGRA,matrizPiezas);
             //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
-            scene->addItem(matrizPiezas[i][j]);
+			//scene->addItem(matrizPiezas[i][j]);
         }
-    }
+	}
     //Crear reinas
     int i = 3;
     for (int j = 0; j < 8 ; j+= 7)
     {
         if(j>0)
-            matrizPiezas[i][j] = new reina(tablero,QPoint(i,j),BLANCA, matrizPiezas);
+			matrizPiezas[i][j] = new reina(tableroBG,QPoint(i,j),BLANCA, matrizPiezas);
         else
-            matrizPiezas[i][j] = new reina(tablero,QPoint(i,j),NEGRA, matrizPiezas);
+			matrizPiezas[i][j] = new reina(tableroBG,QPoint(i,j),NEGRA, matrizPiezas);
         //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
-        scene->addItem(matrizPiezas[i][j]);
+		//scene->addItem(matrizPiezas[i][j]);
     }
     i = 4;
     //Crear reyes
@@ -111,16 +111,16 @@ tablero::tablero(QWidget *parent) :
     {
         if(j>0)
         {
-            matrizPiezas[i][j] = new rey(tablero,QPoint(i,j),BLANCA,matrizPiezas);
+			matrizPiezas[i][j] = new rey(tableroBG,QPoint(i,j),BLANCA,matrizPiezas);
             coord_rey_blanco = QPoint(i, j);
         }
         else
         {
-            matrizPiezas[i][j] = new rey(tablero,QPoint(i,j),NEGRA,matrizPiezas);
+			matrizPiezas[i][j] = new rey(tableroBG,QPoint(i,j),NEGRA,matrizPiezas);
             coord_rey_negro = QPoint(i, j);
         }
         //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
-        scene->addItem(matrizPiezas[i][j]);
+		//scene->addItem(matrizPiezas[i][j]);
     }
 
     //Conectar señales
@@ -249,5 +249,39 @@ void tablero::teamUnselectable(colorP team, bool changeT)
 					matrizPiezas[i][j]->setTurno(false);
             }
         }
-    }
+	}
+}
+
+
+void tablero::promocion(int type, QPoint oldCoord, QPoint newCoord)
+{
+	int xo = newCoord.x(),yo = newCoord.y();
+	qDebug() << "\nPromocion: " << oldCoord << newCoord;
+	//Borrar la pieza
+	delete matrizPiezas[oldCoord.x()][oldCoord.y()];
+	//Sustituirla por una nueva
+	switch (type) {
+			case 0:
+				matrizPiezas[xo][yo] = new reina(tableroBG,oldCoord,matrizPiezas[xo][yo]->getColor(), matrizPiezas);
+				break;
+			case 1:
+				matrizPiezas[xo][yo] = new torre(tableroBG,oldCoord,matrizPiezas[xo][yo]->getColor(), matrizPiezas);
+				break;
+			case 2:
+				matrizPiezas[xo][yo] = new alfil(tableroBG,oldCoord,matrizPiezas[xo][yo]->getColor(), matrizPiezas);
+				break;
+			case 3:
+				matrizPiezas[xo][yo] = new caballo(tableroBG,oldCoord,matrizPiezas[xo][yo]->getColor(), matrizPiezas);
+				break;
+			default:
+				matrizPiezas[xo][yo] = new reina(tableroBG,oldCoord,matrizPiezas[xo][yo]->getColor(), matrizPiezas);
+				break;
+		}
+	//Hacer que no se pueda seleccionar
+	matrizPiezas[xo][yo]->setSelectable(false);
+	matrizPiezas[xo][yo]->setTurno(false);
+	//Conectar la pieza con el tablero
+	connect(matrizPiezas[xo][yo], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
+	connect(matrizPiezas[xo][yo], SIGNAL(teamSelect(colorP, bool)), this, SLOT(teamSelectable(colorP, bool)));
+	connect(matrizPiezas[xo][yo], SIGNAL(teamUnselect(colorP, bool)), this, SLOT(teamUnselectable(colorP, bool)));
 }

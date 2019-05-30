@@ -35,6 +35,7 @@ SOURCES += \
         game/clases/reina.cpp \
         game/clases/rey.cpp \
         game/clases/torre.cpp \
+        game/coronacionpeon.cpp \
         game/tablero.cpp \
         main.cpp \
         menu.cpp
@@ -50,6 +51,7 @@ HEADERS += \
         game/clases/reina.h \
         game/clases/rey.h \
         game/clases/torre.h \
+        game/coronacionpeon.h \
         game/global.hpp \
         game/tablero.h \
         menu.hpp
@@ -57,6 +59,7 @@ HEADERS += \
 FORMS += \
         acerca/acercade.ui \
         error/error.ui \
+        game/coronacionpeon.ui \
         game/tablero.ui \
         menu.ui
 

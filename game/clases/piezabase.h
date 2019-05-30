@@ -138,6 +138,8 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		Elimina todas las cajas de seleccion y establece la nueva posicion de la pieza
 		@param [in] coordT las nuevas coordenadas en el tablero de la pieza*/
 		void move(QPoint coordT);
+
+		//void promocion(int type);
 	signals:
 		///Mandar señal al tablero de que se movio la pieza
 		/**
@@ -168,6 +170,7 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		QPoint coordTablero; //!< Posicion de la pieza en el tablero
 		colorP color; //!< El equipo de la pieza: Negra, blanca o vacia
 		bool selectable; //!< Si se puede seleccionar la pieza
+		bool lastClicked;
 };
 
 unsigned int check(piezaBase ***ntablero = nullptr, QPoint coordI = QPoint(8, 8), colorP colorpieza = BLANCA, QList <QPoint> *arreglo_jaque = nullptr);

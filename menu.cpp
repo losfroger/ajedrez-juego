@@ -1,6 +1,9 @@
 #include "menu.hpp"
 #include "ui_menu.h"
 
+#include "game/global.hpp"
+tablero *juego;
+
 menu::menu(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::menu)

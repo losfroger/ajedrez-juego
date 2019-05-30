@@ -8,10 +8,12 @@
 #include "acerca/acercade.h"
 #include "error/error.h"
 #include "game/tablero.h"
+#include "game/coronacionpeon.h"
 
 namespace Ui {
 class menu;
 }
+
 
 class menu : public QMainWindow
 {
@@ -31,7 +33,6 @@ class menu : public QMainWindow
 	private:
 		Ui::menu *ui;
 		acercaDe *acerca;
-		tablero *juego;
 };
 
 #endif // MENU_HPP
