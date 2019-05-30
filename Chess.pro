@@ -50,6 +50,7 @@ HEADERS += \
         game/clases/reina.h \
         game/clases/rey.h \
         game/clases/torre.h \
+        game/global.hpp \
         game/tablero.h \
         menu.hpp
 

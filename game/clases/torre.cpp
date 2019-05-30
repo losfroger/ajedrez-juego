@@ -3,6 +3,7 @@
 piezas::torre::torre(QGraphicsItem *parent, QPoint coordI, colorP iColor,piezaBase ***nTablero) : piezaBase (parent, coordI, iColor, TORRE,nTablero)
 {
 	QString routeImage;
+    specialA = false;
 	//Cargar diferente imagen dependiendo si es una pieza negra o blanca
 	if (iColor == BLANCA)
 		routeImage = QCoreApplication::applicationDirPath() + "/resources/0torre.png";
@@ -15,7 +16,12 @@ piezas::torre::torre(QGraphicsItem *parent, QPoint coordI, colorP iColor,piezaBa
 
 piezas::torre::torre(const piezas::piezaBase &other) : piezaBase(other)
 {
-	this->setPixmap(other.pixmap());
+    this->setPixmap(other.pixmap());
+}
+
+void piezas::torre::positionChanged(QPoint nCoord)
+{
+    setSpecialA(true);
 }
 
 QList<QPoint> piezas::torre::movimientos()

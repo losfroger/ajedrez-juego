@@ -22,12 +22,17 @@ class rey : public piezaBase
 		///Constructor copia
 		rey(const piezaBase &other);
 
+        virtual void positionChanged(QPoint nCoord);
+
 		///Lista de movimientos de la pieza
 		/**
 		Funcion que calcula los movimientos que puede hacer la pieza
 		@return Lista con los movimientos posibles expresados en coordenadas del tablero*/
 		QList<QPoint> movimientos();
 	private:
+        QList<QPoint> Enroque;
+
+        bool fistMove; // para saber si ya se movio por primera vez
 };
 
 

@@ -1,5 +1,10 @@
 #include "tablero.h"
+#include "global.hpp"
+#include <QPoint>
 #include "ui_tablero.h"
+
+QPoint coord_rey_blanco = QPoint(0, 0);
+QPoint coord_rey_negro = QPoint(0, 0);
 
 tablero::tablero(QWidget *parent) :
     QDialog(parent),
@@ -105,9 +110,15 @@ tablero::tablero(QWidget *parent) :
     for (int j = 0; j < 8 ; j+= 7)
     {
         if(j>0)
+        {
             matrizPiezas[i][j] = new rey(tablero,QPoint(i,j),BLANCA,matrizPiezas);
+            coord_rey_blanco = QPoint(i, j);
+        }
         else
+        {
             matrizPiezas[i][j] = new rey(tablero,QPoint(i,j),NEGRA,matrizPiezas);
+            coord_rey_negro = QPoint(i, j);
+        }
         //connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint,QPoint)), this, SLOT(piezaMovida(QPoint,QPoint)));
         scene->addItem(matrizPiezas[i][j]);
     }
@@ -136,7 +147,6 @@ tablero::tablero(QWidget *parent) :
 
 tablero::~tablero()
 {
-	delete scene;
     for (int w = 0; w < 8; w++)
         delete[] matrizPiezas[w];
     delete[] matrizPiezas;
@@ -149,19 +159,47 @@ void tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
 
 	teamUnselectable(matrizPiezas[oldCoord.x()][oldCoord.y()]->getColor(),true);
     if (matrizPiezas[oldCoord.x()][oldCoord.y()]->getColor() == BLANCA)
-		teamSelectable(NEGRA, true);
+    {
+        teamSelectable(NEGRA, true);
+        qDebug() << "Coordenadas del rey negro = " << coord_rey_negro;
+    }
     else
-		teamSelectable(BLANCA, true);
+    {
+        teamSelectable(BLANCA, true);
+        qDebug() << "Coordenadas del rey blanco = " << coord_rey_blanco;
+    }
 
-	//Eliminar lo que este en la nueva posicion
-	delete matrizPiezas[newCoord.x()][newCoord.y()];
+    //seguimos las posiciones de los reyes
+    if (matrizPiezas[oldCoord.x()][oldCoord.y()]->getPieza() == REY)
+    {
+        if (matrizPiezas[oldCoord.x()][oldCoord.y()]->getColor() == BLANCA)
+            coord_rey_blanco = QPoint(newCoord.x(), newCoord.y());
+        else
+            coord_rey_negro = QPoint(newCoord.x(), newCoord.y());
+    }
+
+    //Si no es una casilla vacia, eliminar el objeto de la escena
+    if(matrizPiezas[newCoord.x()][newCoord.y()]->getPieza() != BASE)
+        scene->removeItem(matrizPiezas[newCoord.x()][newCoord.y()]);
 
     //Mover la pieza a la posicion nueva
     matrizPiezas[newCoord.x()][newCoord.y()] = matrizPiezas[oldCoord.x()][oldCoord.y()];
 
     //Hacer que la posicion anterior este vacia
-	matrizPiezas[oldCoord.x()][oldCoord.y()] = nullptr;
     matrizPiezas[oldCoord.x()][oldCoord.y()] = new piezaBase(nullptr,QPoint(oldCoord.x(),oldCoord.y()));
+
+    if (matrizPiezas[newCoord.x()][newCoord.y()]->getColor() == BLANCA)
+    {
+        if (check(matrizPiezas, coord_rey_negro, NEGRA))
+        {
+            qDebug() << "\tCheck!!! de blancas a negras";
+        }
+    }
+    else
+    {
+        if (check(matrizPiezas, coord_rey_blanco, BLANCA))
+            qDebug() << "\tCheck!!! de negras a blancas";
+    }
 
     //Escribir en el log
     QString texto;

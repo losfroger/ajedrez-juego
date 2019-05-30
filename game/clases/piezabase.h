@@ -38,7 +38,6 @@ enum colorP
 	NEGRA
 };
 
-
 namespace piezas {
 
 using namespace piezas;
@@ -119,6 +118,17 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		///Conseguir si la pieza se puede seleccionar o no
 		bool getSpecialA() const {return specialA;}
 
+        ///Cambiar si el rey esta en jaque
+        void setJaque(bool newJaque, colorP equipo)
+        {
+            if (equipo == BLANCA)
+                jaque_blancas = newJaque;
+            else
+                jaque_negras = newJaque;
+        }
+        ///Conseguir si el rey esta en jaque
+        bool getJaque(colorP equipo) {return ((equipo == BLANCA)? jaque_blancas : jaque_negras);}
+
 		void setTurno(bool newT) {turno = newT;}
 
 
@@ -149,6 +159,8 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 
 	private:
 		bool specialA; //!< Booleano usado en condiciones especiales, como el enroque o la captura al paso
+        bool jaque_blancas; // para saber si esta en jaque las piezas blancas
+        bool jaque_negras; // para saber si esta en jaque las piezas negras
 
 		bool turno; //!< Si es el turno de la pieza
 
@@ -157,6 +169,8 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		colorP color; //!< El equipo de la pieza: Negra, blanca o vacia
 		bool selectable; //!< Si se puede seleccionar la pieza
 };
+
+unsigned int check(piezaBase ***ntablero = nullptr, QPoint coordI = QPoint(8, 8), colorP colorpieza = BLANCA, QList <QPoint> *arreglo_jaque = nullptr);
 
 }
 
