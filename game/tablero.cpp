@@ -141,6 +141,7 @@ tablero::tablero(QWidget *parent) :
 	teamSelectable(BLANCA, true);
 	teamUnselectable(NEGRA, false);
 
+    ui->label->setText("Turno de las piezas Blancas");
     //Asignar la escena a la ventana de juego
     ui->gameView->setScene(scene);
 }
@@ -155,6 +156,10 @@ tablero::~tablero()
 
 void tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
 {
+    char vX[8]={'a','b','c','d','e','f','g','h'};
+    char piezaMovimiento;
+    QString textoLabel;
+
     qDebug() << "Slot tablero! " << oldCoord << "," << newCoord;
 
 	teamUnselectable(matrizPiezas[oldCoord.x()][oldCoord.y()]->getColor(),true);
@@ -203,18 +208,40 @@ void tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
 
     //Escribir en el log
     QString texto;
-    if (matrizPiezas[newCoord.x()][newCoord.y()]->getColor() == BLANCA)
-        texto += "[Blancas] ";
+    if (matrizPiezas[newCoord.x()][newCoord.y()]->getColor() == BLANCA){
+        texto += "Blanco: ";
+        textoLabel="Turno de las piezas Negras";
+    }
     else
-        texto += "[Negras] ";
+    {
+        texto += " Negro: ";
+        textoLabel="Turno de las piezas Blancas";
+    }
 
-    texto += "[" + QString::number(oldCoord.x()) + "," + QString::number(oldCoord.y()) + "] a ["
-             + QString::number(newCoord.x()) + "," + QString::number(newCoord.y()) + "]";
+    
+    if(matrizPiezas[newCoord.x()][newCoord.y()]->getPieza()==REY){
+        piezaMovimiento='R';
+    }
+    else if(matrizPiezas[newCoord.x()][newCoord.y()]->getPieza() == REINA){
+        piezaMovimiento='D';
+    }
+    else if(matrizPiezas[newCoord.x()][newCoord.y()]->getPieza() == TORRE){
+        piezaMovimiento='T';
+    }
+    else if(matrizPiezas[newCoord.x()][newCoord.y()]->getPieza() == ALFIL){
+        piezaMovimiento='A';
+    }
+    else if(matrizPiezas[newCoord.x()][newCoord.y()]->getPieza()==CABALLO){
+        piezaMovimiento='C';
+    }
+    else
+        piezaMovimiento='P';
+
+    texto += QString(piezaMovimiento) + QString(vX[oldCoord.x()]) + QString::number(8-oldCoord.y()) + " -> "
+            + QString(piezaMovimiento) + QString(vX[newCoord.x()]) + QString::number(8-newCoord.y());
 
     ui->log->append(texto);
-
-
-
+    ui->label->setText(textoLabel);
 }
 
 void tablero::teamSelectable(colorP team, bool changeT)
