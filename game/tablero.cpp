@@ -29,15 +29,15 @@ tablero::tablero(QWidget *parent) :
 	scene->addItem(tableroBG);
 
     //TABLERO DINAMICO
-    matrizPiezas = new piezaBase**[8];
+	matrizPiezas = new casillaBase**[8];
     for (int i = 0; i < 8; i++)
-        matrizPiezas[i] = new piezaBase*[8];
+		matrizPiezas[i] = new casillaBase*[8];
 
     //Inicializar el tablero con casillas vacias
     for (int i = 0; i<8; i++)
     {
         for (int j = 0; j<8; j++)
-			matrizPiezas[i][j] = new piezaBase(tableroBG,QPoint(i,j),VACIA,BASE,matrizPiezas);
+			matrizPiezas[i][j] = new casillaBase(tableroBG,QPoint(i,j),VACIA,BASE,matrizPiezas);
     }
 
     //TEST TABLERO
@@ -191,30 +191,30 @@ void tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
     matrizPiezas[newCoord.x()][newCoord.y()] = matrizPiezas[oldCoord.x()][oldCoord.y()];
 
     //Hacer que la posicion anterior este vacia
-    matrizPiezas[oldCoord.x()][oldCoord.y()] = new piezaBase(nullptr,QPoint(oldCoord.x(),oldCoord.y()));
+	matrizPiezas[oldCoord.x()][oldCoord.y()] = new casillaBase(nullptr,QPoint(oldCoord.x(),oldCoord.y()));
 
     if (matrizPiezas[newCoord.x()][newCoord.y()]->getColor() == BLANCA)
     {
         if (check(matrizPiezas, coord_rey_negro, NEGRA))
         {
-            qDebug() << "\tCheck!!! de blancas a negras";
+			qDebug() << "\tCheck!!! de blancas a negras" << check(matrizPiezas, coord_rey_negro, NEGRA);
         }
     }
     else
     {
         if (check(matrizPiezas, coord_rey_blanco, BLANCA))
-            qDebug() << "\tCheck!!! de negras a blancas";
+			qDebug() << "\tCheck!!! de negras a blancas" << check(matrizPiezas, coord_rey_blanco, BLANCA);
     }
 
     //Escribir en el log
     QString texto;
     if (matrizPiezas[newCoord.x()][newCoord.y()]->getColor() == BLANCA){
-        texto += "Blanco: ";
+		texto += "Blanco:\t";
         textoLabel="Turno de las piezas Negras";
     }
     else
     {
-        texto += " Negro: ";
+		texto += "Negro:\t";
         textoLabel="Turno de las piezas Blancas";
     }
 

@@ -1,6 +1,6 @@
 #include "caballo.h"
 
-piezas::caballo::caballo(QGraphicsItem *parent, QPoint coordI, colorP iColor, piezaBase ***nTablero) : piezaBase (parent, coordI, iColor, CABALLO, nTablero)
+piezas::caballo::caballo(QGraphicsItem *parent, QPoint coordI, colorP iColor, casillaBase ***nTablero) : casillaBase (parent, coordI, iColor, CABALLO, nTablero)
 {
     QString routeImage;
     //Cargar diferente imagen dependiendo si es una pieza negra o blanca
@@ -13,7 +13,7 @@ piezas::caballo::caballo(QGraphicsItem *parent, QPoint coordI, colorP iColor, pi
     setPixmap(routeImage);
 }
 
-piezas::caballo::caballo(const piezas::piezaBase &other) : piezaBase(other)
+piezas::caballo::caballo(const piezas::casillaBase &other) : casillaBase(other)
 {
     this->setPixmap(other.pixmap());
 }

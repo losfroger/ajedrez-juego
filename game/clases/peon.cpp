@@ -3,7 +3,7 @@
 #include "game/coronacionpeon.h"
 
 piezas::peon::peon(QGraphicsItem *parent, QPoint coordI,
-				   colorP iColor, piezaBase ***nTablero) : piezaBase (parent, coordI, iColor, PEON,nTablero)
+				   colorP iColor, casillaBase ***nTablero) : casillaBase (parent, coordI, iColor, PEON,nTablero)
 {
 	QString routeImage;
 	//Cargar diferente imagen dependiendo si es una pieza negra o blanca
@@ -19,7 +19,7 @@ piezas::peon::peon(QGraphicsItem *parent, QPoint coordI,
 	capturaPaso = false;
 }
 
-piezas::peon::peon(const piezaBase &other) : piezaBase(other)
+piezas::peon::peon(const casillaBase &other) : casillaBase(other)
 {
 	this->setPixmap(other.pixmap());
 }
@@ -155,12 +155,12 @@ void piezas::peon::positionChanged(QPoint nCoord)
 			if(captura[i] == nCoord && getColor() == NEGRA)
 			{
 				delete tablero[nCoord.x()][nCoord.y()-1];
-				tablero[nCoord.x()][nCoord.y()-1] = new piezaBase(nullptr,QPoint(nCoord.x(),nCoord.y()-1));
+				tablero[nCoord.x()][nCoord.y()-1] = new casillaBase(nullptr,QPoint(nCoord.x(),nCoord.y()-1));
 			}
 			if(captura[i] == nCoord && getColor() == BLANCA)
 			{
 				delete tablero[nCoord.x()][nCoord.y()+1];
-				tablero[nCoord.x()][nCoord.y()+1] = new piezaBase(nullptr,QPoint(nCoord.x(),nCoord.y()+1));
+				tablero[nCoord.x()][nCoord.y()+1] = new casillaBase(nullptr,QPoint(nCoord.x(),nCoord.y()+1));
 			}
 		}
 		capturaPaso = false;

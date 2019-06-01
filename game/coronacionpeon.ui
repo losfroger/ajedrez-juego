@@ -6,26 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>191</width>
-    <height>92</height>
+    <width>253</width>
+    <height>122</height>
    </rect>
   </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-    <horstretch>191</horstretch>
-    <verstretch>92</verstretch>
+    <horstretch>253</horstretch>
+    <verstretch>122</verstretch>
    </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>191</width>
-    <height>92</height>
+    <width>253</width>
+    <height>122</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>191</width>
-    <height>92</height>
+    <width>253</width>
+    <height>122</height>
    </size>
   </property>
   <property name="contextMenuPolicy">
@@ -43,6 +43,12 @@
      <item>
       <widget class="QLabel" name="imageLabel">
        <property name="minimumSize">
+        <size>
+         <width>72</width>
+         <height>72</height>
+        </size>
+       </property>
+       <property name="maximumSize">
         <size>
          <width>72</width>
          <height>72</height>

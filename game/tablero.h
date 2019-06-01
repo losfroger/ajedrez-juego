@@ -45,7 +45,7 @@ class tablero : public QDialog
 		QGraphicsPixmapItem *tableroBG;
 		Ui::tablero *ui;
 		QGraphicsScene *scene; //!< Escena donde se ponen las imagenes
-		piezaBase ***matrizPiezas; //!< Matriz de las piezas del tablero
+		casillaBase ***matrizPiezas; //!< Matriz de las piezas del tablero
 
 	public slots:
 		///Cuando se mueve una pieza

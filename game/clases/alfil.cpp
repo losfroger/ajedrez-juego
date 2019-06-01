@@ -1,6 +1,6 @@
 #include "alfil.h"
 
-piezas::alfil::alfil(QGraphicsItem *parent, QPoint coordI, colorP iColor,piezaBase ***nTablero) : piezaBase (parent, coordI, iColor, ALFIL,nTablero)
+piezas::alfil::alfil(QGraphicsItem *parent, QPoint coordI, colorP iColor,casillaBase ***nTablero) : casillaBase (parent, coordI, iColor, ALFIL,nTablero)
 {
     QString routeImage;
     //Cargar diferente imagen dependiendo si es una pieza negra o blanca
@@ -13,7 +13,7 @@ piezas::alfil::alfil(QGraphicsItem *parent, QPoint coordI, colorP iColor,piezaBa
     setPixmap(routeImage);
 }
 
-piezas::alfil::alfil(const piezas::piezaBase &other) : piezaBase(other)
+piezas::alfil::alfil(const piezas::casillaBase &other) : casillaBase(other)
 {
     this->setPixmap(other.pixmap());
 }

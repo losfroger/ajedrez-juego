@@ -1,5 +1,5 @@
-#ifndef PIEZABASE_H
-#define PIEZABASE_H
+#ifndef casillaBase_H
+#define casillaBase_H
 
 /*Libreria que uso para saber donde se encuentra
 la aplicacion y poder cargar las imagenes*/
@@ -50,7 +50,7 @@ Implementa:
 - El click en el objeto
 - El evento cuando se mueve la pieza
 - La señal de cuando se mueve la pieza*/
-class piezaBase : public QObject, public QGraphicsPixmapItem
+class casillaBase : public QObject, public QGraphicsPixmapItem
 {
 	Q_OBJECT
 	public:
@@ -59,13 +59,13 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		@param [in] parent Padre del objeto
 		@param [in] coordI Coordenada inicial en el tablero (va de 0,0 a 7,7)
 		@param [in] iColor Color inicial de la pieza (0 = blanca, 1 = negra)*/
-		piezaBase(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0),
-				  colorP iColor = VACIA, tipoPieza iPieza = BASE, piezaBase ***nTablero = nullptr);
+		casillaBase(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0),
+				  colorP iColor = VACIA, tipoPieza iPieza = BASE, casillaBase ***nTablero = nullptr);
 		///Constructor copia
-		piezaBase(const piezaBase &other);
+		casillaBase(const casillaBase &other);
 
 		///Destructor
-		virtual ~piezaBase();
+		virtual ~casillaBase();
 		///Lista de movimientos de la pieza
 		/**
 		@return Una QList de los movimientos posibles de la pieza
@@ -157,7 +157,7 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		void teamUnselect(colorP team, bool changeT);
 
 	protected:
-		piezaBase ***tablero; //!< Apuntador a la matriz de piezas, usada para poder consultar la posicion de otras piezas desde una pieza
+		casillaBase ***tablero; //!< Apuntador a la matriz de piezas, usada para poder consultar la posicion de otras piezas desde una pieza
 
 	private:
 		bool specialA; //!< Booleano usado en condiciones especiales, como el enroque o la captura al paso
@@ -173,8 +173,8 @@ class piezaBase : public QObject, public QGraphicsPixmapItem
 		bool lastClicked;
 };
 
-unsigned int check(piezaBase ***ntablero = nullptr, QPoint coordI = QPoint(8, 8), colorP colorpieza = BLANCA, QList <QPoint> *arreglo_jaque = nullptr);
+unsigned int check(casillaBase ***ntablero = nullptr, QPoint coordI = QPoint(8, 8), colorP colorpieza = BLANCA, QList <QPoint> *arreglo_jaque = nullptr);
 
 }
 
-#endif // PIEZABASE_H
+#endif // casillaBase_H

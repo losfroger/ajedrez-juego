@@ -23,7 +23,7 @@ X	 | '    | '    | '    | X
 '    | X    | '    | X    | '
 X	 | '    | '    | '    | X
 */
-class alfil : public piezaBase
+class alfil : public casillaBase
 {
     public:
         ///Constructor
@@ -31,10 +31,10 @@ class alfil : public piezaBase
         @param [in] parent Padre objeto
         @param [in] coordI Coordenada del tablero donde va a estar la pieza
         @param [in] iColor Color de la pieza*/
-        alfil(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA,piezaBase ***nTablero = nullptr);
+        alfil(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA,casillaBase ***nTablero = nullptr);
 
         ///Constructor copia
-        alfil(const piezaBase &other);
+        alfil(const casillaBase &other);
 
         ///Lista de movimientos de la pieza
         /**

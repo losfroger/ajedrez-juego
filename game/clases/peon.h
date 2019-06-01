@@ -36,7 +36,7 @@ namespace piezas {
  '    | '    | '
 
 */
-class peon : public piezaBase
+class peon : public casillaBase
 {
 	public:
 		///Constructor
@@ -44,10 +44,10 @@ class peon : public piezaBase
 		@param [in] parent Padre objeto
 		@param [in] coordI Coordenada del tablero donde va a estar la pieza
 		@param [in] iColor Color de la pieza*/
-		peon(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA, piezaBase ***nTablero = nullptr);
+		peon(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA, casillaBase ***nTablero = nullptr);
 
 		///Constructor copia
-		peon(const piezaBase &other);
+		peon(const casillaBase &other);
 
 		///Lista de movimientos de la pieza
 		/**

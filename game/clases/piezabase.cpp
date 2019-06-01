@@ -2,8 +2,8 @@
 
 #include "game/clases/reina.h"
 
-piezas::piezaBase::piezaBase(QGraphicsItem *parent, QPoint coordI,
-							 colorP iColor, tipoPieza iPieza, piezaBase ***nTablero) : QObject (), QGraphicsPixmapItem (parent)
+piezas::casillaBase::casillaBase(QGraphicsItem *parent, QPoint coordI,
+							 colorP iColor, tipoPieza iPieza, casillaBase ***nTablero) : QObject (), QGraphicsPixmapItem (parent)
 {
 	pieza = iPieza;
 	coordTablero = coordI;
@@ -20,7 +20,7 @@ piezas::piezaBase::piezaBase(QGraphicsItem *parent, QPoint coordI,
     jaque_negras = false;
 }
 
-piezas::piezaBase::piezaBase(const piezaBase &other) : QObject (), QGraphicsPixmapItem(other.parentItem())
+piezas::casillaBase::casillaBase(const casillaBase &other) : QObject (), QGraphicsPixmapItem(other.parentItem())
 {
 	this->setPieza (other.getPieza());
 	this->setCoord (other.getCoord());
@@ -30,18 +30,18 @@ piezas::piezaBase::piezaBase(const piezaBase &other) : QObject (), QGraphicsPixm
 	tablero = other.tablero;
 }
 
-piezas::piezaBase::~piezaBase()
+piezas::casillaBase::~casillaBase()
 {
 	scene()->removeItem(this);
 }
 
-QList<QPoint> piezas::piezaBase::movimientos()
+QList<QPoint> piezas::casillaBase::movimientos()
 {
 	QList<QPoint> lista;
 	return lista;
 }
 
-void piezas::piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void piezas::casillaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 	qDebug() << "Pieza click! " << pieza << "\tEvent:" << event;
 	if (event->button() == Qt::LeftButton && selectable == true)
@@ -74,13 +74,13 @@ void piezas::piezaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	}
 }
 
-void piezas::piezaBase::positionChanged(QPoint nCoord)
+void piezas::casillaBase::positionChanged(QPoint nCoord)
 { nCoord; }
 
-void piezas::piezaBase::update()
+void piezas::casillaBase::update()
 { }
 
-void piezas::piezaBase::move(QPoint coordT)
+void piezas::casillaBase::move(QPoint coordT)
 {
 	QPoint aux = coordTablero;
 	qDebug() << "Slot move!";
@@ -97,13 +97,13 @@ void piezas::piezaBase::move(QPoint coordT)
 	this->positionChanged(coordT);
 }
 
-unsigned int piezas::check(piezaBase ***ntablero, QPoint coordI, colorP colorpieza, QList <QPoint> *arreglo_jaque)
+unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorpieza, QList <QPoint> *arreglo_jaque)
 {
     arreglo_jaque = nullptr;
+	unsigned int cont_jaques = 0;
 
     if (coordI.x() <= 7 && coordI.y() <= 7)
     {
-        unsigned int cont_jaques = 0;
 
         int posx = coordI.x();
         int posy = coordI.y();
@@ -458,5 +458,5 @@ unsigned int piezas::check(piezaBase ***ntablero, QPoint coordI, colorP colorpie
             moves_check.clear();
     }
 
-    return false;
+	return cont_jaques;
 }

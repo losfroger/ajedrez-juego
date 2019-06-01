@@ -1,6 +1,6 @@
 #include "torre.h"
 
-piezas::torre::torre(QGraphicsItem *parent, QPoint coordI, colorP iColor,piezaBase ***nTablero) : piezaBase (parent, coordI, iColor, TORRE,nTablero)
+piezas::torre::torre(QGraphicsItem *parent, QPoint coordI, colorP iColor,casillaBase ***nTablero) : casillaBase (parent, coordI, iColor, TORRE,nTablero)
 {
 	QString routeImage;
     specialA = false;
@@ -14,7 +14,7 @@ piezas::torre::torre(QGraphicsItem *parent, QPoint coordI, colorP iColor,piezaBa
 	setPixmap(routeImage);
 }
 
-piezas::torre::torre(const piezas::piezaBase &other) : piezaBase(other)
+piezas::torre::torre(const piezas::casillaBase &other) : casillaBase(other)
 {
     this->setPixmap(other.pixmap());
 }

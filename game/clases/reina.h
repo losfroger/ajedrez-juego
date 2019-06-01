@@ -11,7 +11,7 @@ namespace piezas {
 # Valor
 - 9 Puntos
 */
-class reina : public piezaBase
+class reina : public casillaBase
 {
 	public:
 		///Constructor
@@ -19,10 +19,10 @@ class reina : public piezaBase
 		@param [in] parent Padre objeto
 		@param [in] coordI Coordenada del tablero donde va a estar la pieza
 		@param [in] iColor Color de la pieza*/
-		reina(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA,piezaBase ***nTablero = nullptr);
+		reina(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA,casillaBase ***nTablero = nullptr);
 
 		///Constructor copia
-		reina(const piezaBase &other);
+		reina(const casillaBase &other);
 
 		///Lista de movimientos de la pieza
 		/**

@@ -1,7 +1,7 @@
 #include "reina.h"
 
 
-piezas::reina::reina(QGraphicsItem *parent, QPoint coordI, colorP iColor,piezaBase ***nTablero) : piezaBase (parent, coordI, iColor, REINA,nTablero)
+piezas::reina::reina(QGraphicsItem *parent, QPoint coordI, colorP iColor,casillaBase ***nTablero) : casillaBase (parent, coordI, iColor, REINA,nTablero)
 {
 	QString routeImage;
 	//Cargar diferente imagen dependiendo si es una pieza negra o blanca
@@ -14,7 +14,7 @@ piezas::reina::reina(QGraphicsItem *parent, QPoint coordI, colorP iColor,piezaBa
 	setPixmap(routeImage);
 }
 
-piezas::reina::reina(const piezas::piezaBase &other) : piezaBase(other)
+piezas::reina::reina(const piezas::casillaBase &other) : casillaBase(other)
 {
 	this->setPixmap(other.pixmap());
 }

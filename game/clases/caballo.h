@@ -28,7 +28,7 @@ X    | '    | '    | '    | X
 
 
 */
-class caballo : public piezaBase
+class caballo : public casillaBase
 {
 	public:
 		///Constructor
@@ -36,10 +36,10 @@ class caballo : public piezaBase
 		@param [in] parent Padre objeto
 		@param [in] coordI Coordenada del tablero donde va a estar la pieza
 		@param [in] iColor Color de la pieza*/
-		caballo(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA, piezaBase ***nTablero = nullptr);
+		caballo(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA, casillaBase ***nTablero = nullptr);
 
 		///Constructor copia
-		caballo(const piezaBase &other);
+		caballo(const casillaBase &other);
 
 		///Lista de movimientos de la pieza
 		/**

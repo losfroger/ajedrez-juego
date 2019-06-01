@@ -12,7 +12,7 @@ namespace piezas {
 - 5 Puntos
 
 Torre*/
-class torre : public piezaBase
+class torre : public casillaBase
 {
 	public:
 		///Constructor
@@ -20,10 +20,10 @@ class torre : public piezaBase
 		@param [in] parent Padre objeto
 		@param [in] coordI Coordenada del tablero donde va a estar la pieza
 		@param [in] iColor Color de la pieza*/
-		torre(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA,piezaBase ***nTablero = nullptr);
+		torre(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA,casillaBase ***nTablero = nullptr);
 
 		///Constructor copia
-		torre(const piezaBase &other);
+		torre(const casillaBase &other);
 
         virtual void positionChanged(QPoint nCoord);
 

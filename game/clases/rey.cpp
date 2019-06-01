@@ -1,7 +1,7 @@
 #include "rey.h"
 #include "game/global.hpp"
 
-piezas::rey::rey(QGraphicsItem *parent, QPoint coordI, colorP iColor, piezaBase ***nTablero) : piezaBase (parent, coordI, iColor, REY, nTablero)
+piezas::rey::rey(QGraphicsItem *parent, QPoint coordI, colorP iColor, casillaBase ***nTablero) : casillaBase (parent, coordI, iColor, REY, nTablero)
 {
 	QString routeImage;
 	//Cargar diferente imagen dependiendo si es una pieza negra o blanca
@@ -14,7 +14,7 @@ piezas::rey::rey(QGraphicsItem *parent, QPoint coordI, colorP iColor, piezaBase 
 	setPixmap(routeImage);
 }
 
-piezas::rey::rey(const piezas::piezaBase &other) : piezaBase(other)
+piezas::rey::rey(const piezas::casillaBase &other) : casillaBase(other)
 {
     this->setPixmap(other.pixmap());
 }
@@ -35,7 +35,7 @@ void piezas::rey::positionChanged(QPoint nCoord)
             tablero[((Enroque[i].x() == 2)? 0 : 7)][posy]->setPos(TAM_SANGRIA + TAM_CUADRO * (((Enroque[i].x() == 2)? 3 : 5)), TAM_SANGRIA + TAM_CUADRO * posy);
             tablero[((Enroque[i].x() == 2)? 0 : 7)][posy]->setCoord(QPoint(((Enroque[i].x() == 2)? 3 : 5), posy));
             tablero[((Enroque[i].x() == 2)? 3 : 5)][posy] = tablero[((Enroque[i].x() == 2)? 0 : 7)][posy];
-            tablero[((Enroque[i].x() == 2)? 0 : 7)][posy] = new piezaBase(nullptr, QPoint(((Enroque[i].x() == 2)? 0 : 7), posy), VACIA, BASE, tablero);
+            tablero[((Enroque[i].x() == 2)? 0 : 7)][posy] = new casillaBase(nullptr, QPoint(((Enroque[i].x() == 2)? 0 : 7), posy), VACIA, BASE, tablero);
 
             break;
         }
