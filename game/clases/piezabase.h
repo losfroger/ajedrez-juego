@@ -173,7 +173,9 @@ class casillaBase : public QObject, public QGraphicsPixmapItem
 		bool lastClicked;
 };
 
-unsigned int check(casillaBase ***ntablero = nullptr, QPoint coordI = QPoint(8, 8), colorP colorpieza = BLANCA, QList <QPoint> *arreglo_jaque = nullptr);
+unsigned int check(casillaBase ***ntablero = nullptr, QPoint coordI = QPoint(8, 8), colorP colorpieza = BLANCA, QList <QPoint> *moves_check = nullptr);
+bool interseccion(QList<QPoint> *ListaA, QList<QPoint> *ListaB);
+
 
 }
 

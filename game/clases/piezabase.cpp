@@ -97,26 +97,27 @@ void piezas::casillaBase::move(QPoint coordT)
 	this->positionChanged(coordT);
 }
 
-unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorpieza, QList <QPoint> *arreglo_jaque)
+unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorpieza, QList <QPoint> *moves_check)
 {
-    arreglo_jaque = nullptr;
-	unsigned int cont_jaques = 0;
 
     if (coordI.x() <= 7 && coordI.y() <= 7)
     {
+        unsigned int cont_jaques = 0;
 
         int posx = coordI.x();
         int posy = coordI.y();
 
-        QList <QPoint> moves_check;
-
-        moves_check.clear();
+        if (moves_check != nullptr)
+            moves_check->clear();
 
         //checamos en forma vertical hacia arriba a ver si estan dando jaque a esa coordenada
         for (int i = posy - 1; i >= 0; --i)
         {
-            if (ntablero[posx][i]->getColor() != colorpieza)
-                moves_check.append(QPoint(posx, i));
+            if (ntablero[posx][i]->getColor() == colorpieza && ntablero[posx][i]->getPieza() == REY)
+                continue;
+
+            if (moves_check != nullptr)
+                moves_check->append(QPoint(posx, i));
 
             if (ntablero[posx][i]->getColor() != VACIA)
             {
@@ -136,14 +137,23 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
 
         //checamos en forma vertical hacia abajo a ver si estan dando jaque a esa coordenada
         for (int i = posy + 1; i <= 7; ++i)
         {
-            if (!cont_jaques)
-                moves_check.append(QPoint(posx, i));
+            if (ntablero[posx][i]->getColor() == colorpieza && ntablero[posx][i]->getPieza() == REY)
+                continue;
+
+            if (moves_check != nullptr)
+            {
+                if (!cont_jaques)
+                    moves_check->append(QPoint(posx, i));
+            }
 
             if (ntablero[posx][i]->getColor() != VACIA)
             {
@@ -163,12 +173,24 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
 
         //checamos en forma horizontal hacia la izquierda a ver si estan dando jaque a esa coordenada
         for (int i = posx - 1; i >= 0; --i)
         {
+            if (ntablero[i][posy]->getColor() == colorpieza && ntablero[i][posy]->getPieza() == REY)
+                continue;
+
+            if (moves_check != nullptr)
+            {
+                if (!cont_jaques)
+                    moves_check->append(QPoint(i, posy));
+            }
+
             if (ntablero[i][posy]->getColor() != VACIA)
             {
                 if (ntablero[i][posy]->getColor() != colorpieza)
@@ -188,12 +210,24 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
 
         //checamos en forma horizontal hacia la derecha a ver si estan dando jaque a esa coordenada
         for (int i = posx + 1; i <= 7; ++i)
         {
+            if (ntablero[i][posy]->getColor() == colorpieza && ntablero[i][posy]->getPieza() == REY)
+                continue;
+
+            if (moves_check != nullptr)
+            {
+                if (!cont_jaques)
+                    moves_check->append(QPoint(i, posy));
+            }
+
             if (ntablero[i][posy]->getColor() != VACIA)
             {
                 if (ntablero[i][posy]->getColor() != colorpieza)
@@ -213,12 +247,24 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
 
         //checamos en forma diagonal hacia la izquierda superior a ver si estan dando jaque a esa coordenada
         for (int i = posx - 1, j = posy - 1; i >= 0 && j >= 0; --i, --j)
         {
+            if (ntablero[i][j]->getColor() == colorpieza && ntablero[i][j]->getPieza() == REY)
+                continue;
+
+            if (moves_check != nullptr)
+            {
+                if (!cont_jaques)
+                    moves_check->append(QPoint(i, j));
+            }
+
             if (ntablero[i][j]->getColor() != VACIA)
             {
                 if (ntablero[i][j]->getColor() != colorpieza)
@@ -243,12 +289,24 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
 
         //checamos en forma diagonal hacia la derecha superior a ver si estan dando jaque a esa coordenada
         for (int i = posx + 1, j = posy - 1; i <= 7 && j >= 0; ++i, --j)
         {
+            if (ntablero[i][j]->getColor() == colorpieza && ntablero[i][j]->getPieza() == REY)
+                continue;
+
+            if (moves_check != nullptr)
+            {
+                if (!cont_jaques)
+                    moves_check->append(QPoint(i, j));
+            }
+
             if (ntablero[i][j]->getColor() != VACIA)
             {
                 if (ntablero[i][j]->getColor() != colorpieza)
@@ -273,12 +331,24 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
 
         //checamos en forma diagonal hacia la izquierda inferior a ver si estan dando jaque a esa coordenada
         for (int i = posx - 1, j = posy + 1; i >= 0 && j <= 7; --i, ++j)
         {
+            if (ntablero[i][j]->getColor() == colorpieza && ntablero[i][j]->getPieza() == REY)
+                continue;
+
+            if (moves_check != nullptr)
+            {
+                if (!cont_jaques)
+                    moves_check->append(QPoint(i, j));
+            }
+
             if (ntablero[i][j]->getColor() != VACIA)
             {
                 if (ntablero[i][j]->getColor() != colorpieza)
@@ -303,12 +373,24 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
 
         //checamos en forma diagonal hacia la derecha inferior a ver si estan dando jaque a esa coordenada
         for (int i = posx + 1, j = posy + 1; i <= 7 && j <= 7; ++i, ++j)
         {
+            if (ntablero[i][j]->getColor() == colorpieza && ntablero[i][j]->getPieza() == REY)
+                continue;
+
+            if (moves_check != nullptr)
+            {
+                if (!cont_jaques)
+                    moves_check->append(QPoint(i, j));
+            }
+
             if (ntablero[i][j]->getColor() != VACIA)
             {
                 if (ntablero[i][j]->getColor() != colorpieza)
@@ -333,8 +415,11 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
 
         //checamos en las posiciones del caballo a ver si un caballo esta dando jaque
         if (posx >= 2)
@@ -346,7 +431,15 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
                     if (ntablero[posx - 2][posy - 1]->getColor() != colorpieza)
                     {
                         if (ntablero[posx - 2][posy - 1]->getPieza() == CABALLO)
+                        {
+                            if (moves_check != nullptr)
+                            {
+                                if (!cont_jaques)
+                                    moves_check->append(QPoint(posx - 2, posy - 1));
+                            }
+
                             ++cont_jaques;
+                        }
                     }
                 }
             }
@@ -358,14 +451,25 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
                     if (ntablero[posx - 2][posy + 1]->getColor() != colorpieza)
                     {
                         if (ntablero[posx - 2][posy + 1]->getPieza() == CABALLO)
+                        {
+                            if (moves_check != nullptr)
+                            {
+                                if (!cont_jaques)
+                                    moves_check->append(QPoint(posx - 2, posy + 1));
+                            }
+
                             ++cont_jaques;
+                        }
                     }
                 }
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
 
         if (posx <= 5)
         {
@@ -376,7 +480,15 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
                     if (ntablero[posx + 2][posy - 1]->getColor() != colorpieza)
                     {
                         if (ntablero[posx + 2][posy - 1]->getPieza() == CABALLO)
+                        {
+                            if (moves_check != nullptr)
+                            {
+                                if (!cont_jaques)
+                                    moves_check->append(QPoint(posx + 2, posy - 1));
+                            }
+
                             ++cont_jaques;
+                        }
                     }
                 }
             }
@@ -388,14 +500,25 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
                     if (ntablero[posx + 2][posy + 1]->getColor() != colorpieza)
                     {
                         if (ntablero[posx + 2][posy + 1]->getPieza() == CABALLO)
+                        {
+                            if (moves_check != nullptr)
+                            {
+                                if (!cont_jaques)
+                                    moves_check->append(QPoint(posx + 2, posy + 1));
+                            }
+
                             ++cont_jaques;
+                        }
                     }
                 }
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
 
         if (posy >= 2)
         {
@@ -406,7 +529,15 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
                     if (ntablero[posx - 1][posy - 2]->getColor() != colorpieza)
                     {
                         if (ntablero[posx - 1][posy - 2]->getPieza() == CABALLO)
+                        {
+                            if (moves_check != nullptr)
+                            {
+                                if (!cont_jaques)
+                                    moves_check->append(QPoint(posx - 1, posy - 2));
+                            }
+
                             ++cont_jaques;
+                        }
                     }
                 }
             }
@@ -418,14 +549,25 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
                     if (ntablero[posx + 1][posy - 2]->getColor() != colorpieza)
                     {
                         if (ntablero[posx + 1][posy - 2]->getPieza() == CABALLO)
+                        {
+                            if (moves_check != nullptr)
+                            {
+                                if (!cont_jaques)
+                                    moves_check->append(QPoint(posx + 1, posy - 2));
+                            }
+
                             ++cont_jaques;
+                        }
                     }
                 }
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
 
         if (posy <= 5)
         {
@@ -436,6 +578,13 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
                     if (ntablero[posx - 1][posy + 2]->getColor() != colorpieza)
                     {
                         if (ntablero[posx - 1][posy + 2]->getPieza() == CABALLO)
+                        {
+                            if (moves_check != nullptr)
+                            {
+                                if (!cont_jaques)
+                                    moves_check->append(QPoint(posx - 1, posy + 2));
+                            }
+
                             ++cont_jaques;
                     }
                 }
@@ -448,15 +597,39 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
                     if (ntablero[posx + 1][posy + 2]->getColor() != colorpieza)
                     {
                         if (ntablero[posx + 1][posy + 2]->getPieza() == CABALLO)
+                        {
+                            if (moves_check != nullptr)
+                            {
+                                if (!cont_jaques)
+                                    moves_check->append(QPoint(posx + 1, posy + 2));
+                            }
+
                             ++cont_jaques;
+                        }
                     }
                 }
             }
         }
 
-        if (!cont_jaques)
-            moves_check.clear();
+        if (moves_check != nullptr)
+        {
+            if (!cont_jaques)
+                moves_check->clear();
+        }
+
+        return cont_jaques;
     }
 
-	return cont_jaques;
+    return 0;
+}
+}
+
+bool piezas::interseccion(QList<QPoint> *ListaA, QList<QPoint> *ListaB)
+{
+    if (ListaA != nullptr && ListaB != nullptr)
+    {
+		return false;
+    }
+
+    return false;
 }

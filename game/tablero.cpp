@@ -195,6 +195,8 @@ void tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
 
     if (matrizPiezas[newCoord.x()][newCoord.y()]->getColor() == BLANCA)
     {
+        qDebug() << matrizPiezas[coord_rey_negro.x()][coord_rey_negro.y()]->movimientos();
+
         if (check(matrizPiezas, coord_rey_negro, NEGRA))
         {
 			qDebug() << "\tCheck!!! de blancas a negras" << check(matrizPiezas, coord_rey_negro, NEGRA);

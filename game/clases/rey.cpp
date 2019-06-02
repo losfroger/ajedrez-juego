@@ -53,50 +53,59 @@ QList<QPoint> piezas::rey::movimientos()
     int posx = getCoord().x();
     int posy = getCoord().y();
 
-    //checamos si podemos hacer enroque largo
-    if (!this->fistMove && tablero[0][posy]->getSpecialA() == false)
+    if (!check(tablero, QPoint(posx, posy), this->getColor()))
     {
-        if (tablero[0][posy]->getPieza() == TORRE && tablero[0][posy]->getColor() == this->getColor())
+        if (!check(tablero, QPoint(posx - 1, posy), this->getColor()) && !check(tablero, QPoint(posx - 2, posy), this->getColor()))
         {
-            bool libre = true;
-
-            for (int i = posx - 1; i >= 1; --i)
+            //checamos si podemos hacer enroque largo
+            if (!this->fistMove && tablero[0][posy]->getSpecialA() == false)
             {
-                if (tablero[i][posy]->getPieza() != BASE)
+                if (tablero[0][posy]->getPieza() == TORRE && tablero[0][posy]->getColor() == this->getColor())
                 {
-                    libre = false;
-                    break;
-                }
-            }
+                    bool libre = true;
 
-            if (libre)
-            {
-                Enroque.append(QPoint(posx - 2, posy));
-                moves.append(QPoint(posx - 2, posy));
+                    for (int i = posx - 1; i >= 1; --i)
+                    {
+                        if (tablero[i][posy]->getPieza() != BASE)
+                        {
+                            libre = false;
+                            break;
+                        }
+                    }
+
+                    if (libre)
+                    {
+                        Enroque.append(QPoint(posx - 2, posy));
+                        moves.append(QPoint(posx - 2, posy));
+                    }
+                }
             }
         }
-    }
 
-    //checamos si podemos hacer enroque corto
-    if (!this->fistMove && tablero[7][posy]->getSpecialA() == false)
-    {
-        if (tablero[7][posy]->getPieza() == TORRE && tablero[7][posy]->getColor() == this->getColor())
+        if (!check(tablero, QPoint(posx + 1, posy), this->getColor()) && !check(tablero, QPoint(posx + 2, posy), this->getColor()))
         {
-            bool libre = true;
-
-            for (int i = posx + 1; i <= 6; ++i)
+            //checamos si podemos hacer enroque corto
+            if (!this->fistMove && tablero[7][posy]->getSpecialA() == false)
             {
-                if (tablero[i][posy]->getPieza() != BASE)
+                if (tablero[7][posy]->getPieza() == TORRE && tablero[7][posy]->getColor() == this->getColor())
                 {
-                    libre = false;
-                    break;
-                }
-            }
+                    bool libre = true;
 
-            if (libre)
-            {
-                Enroque.append(QPoint(posx + 2, posy));
-                moves.append(QPoint(posx + 2, posy));
+                    for (int i = posx + 1; i <= 6; ++i)
+                    {
+                        if (tablero[i][posy]->getPieza() != BASE)
+                        {
+                            libre = false;
+                            break;
+                        }
+                    }
+
+                    if (libre)
+                    {
+                        Enroque.append(QPoint(posx + 2, posy));
+                        moves.append(QPoint(posx + 2, posy));
+                    }
+                }
             }
         }
     }
