@@ -2,7 +2,7 @@
 #define REINA_H
 
 
-#include "game/clases/piezabase.h"
+#include "game/clases/casillabase.h"
 
 namespace piezas {
 
@@ -10,6 +10,23 @@ namespace piezas {
 /**
 # Valor
 - 9 Puntos
+
+# Movimientos:
+
+- R = Alfil
+- X = Movimientos posibles
+
+_	 | _    | _    | _    | _
+:--: | :--: | :--: | :--: | :--:
+'	 | '    | X    | '    | '
+X	 | '    | X    | '    | X
+'    | X    | X    | X    | '
+'	 | X    | R    | X    | '
+'    | X    | X    | X    | '
+X	 | '    | X    | '    | X
+'	 | '    | X    | '    | '
+
+
 */
 class reina : public casillaBase
 {

@@ -2,13 +2,28 @@
 #define REY_H
 
 
-#include "game/clases/piezabase.h"
+#include "game/clases/casillabase.h"
 
 namespace piezas {
 
 ///Pieza rey
 /**
-rey*/
+# Valor
+- \f$ \infty \f$
+
+# Movimientos:
+
+- R = Alfil
+- X = Movimientos posibles
+
+_	 | _    | _    | _    | _
+:--: | :--: | :--: | :--: | :--:
+'	 | '    | '    | '    | '
+'    | X    | X    | X    | '
+'	 | X    | R    | X    | '
+'    | X    | X    | X    | '
+'	 | '    | '    | '    | '
+*/
 class rey : public casillaBase
 {
 	public:
@@ -30,9 +45,9 @@ class rey : public casillaBase
 		@return Lista con los movimientos posibles expresados en coordenadas del tablero*/
 		QList<QPoint> movimientos();
 	private:
-        QList<QPoint> Enroque;
+		QList<QPoint> Enroque; //!< Lista del enroque
 
-        bool fistMove; // para saber si ya se movio por primera vez
+		bool fistMove; //!< para saber si ya se movio por primera vez
 };
 
 

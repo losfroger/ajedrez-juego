@@ -50,9 +50,7 @@ void menu::on_acerca_clicked()
 //Abrir la ventana de juego
 void menu::on_jugar_clicked()
 {
-	hide();
 	juego = new tablero(this);
 	juego->exec();
 	delete juego;
-	show();
 }

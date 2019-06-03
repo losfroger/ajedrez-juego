@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
 	//change
 	//change 2
-	QApplication a(argc, argv);
+    QApplication a(argc, argv);
 	menu w;
 	w.show();
 

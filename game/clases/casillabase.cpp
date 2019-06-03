@@ -1,6 +1,6 @@
-#include "piezabase.h"
-
+#include "casillabase.h"
 #include "game/clases/reina.h"
+#include "game/global.hpp"
 
 piezas::casillaBase::casillaBase(QGraphicsItem *parent, QPoint coordI,
 							 colorP iColor, tipoPieza iPieza, casillaBase ***nTablero) : QObject (), QGraphicsPixmapItem (parent)
@@ -16,8 +16,7 @@ piezas::casillaBase::casillaBase(QGraphicsItem *parent, QPoint coordI,
 	tablero = nTablero;
 	specialA = false;
 	lastClicked = false;
-    jaque_blancas = false;
-    jaque_negras = false;
+    jaque = 0;
 }
 
 piezas::casillaBase::casillaBase(const casillaBase &other) : QObject (), QGraphicsPixmapItem(other.parentItem())
@@ -75,7 +74,7 @@ void piezas::casillaBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
 }
 
 void piezas::casillaBase::positionChanged(QPoint nCoord)
-{ nCoord; }
+{ nCoord * 1; /*Solo para que no marque warning*/ }
 
 void piezas::casillaBase::update()
 { }
@@ -97,9 +96,8 @@ void piezas::casillaBase::move(QPoint coordT)
 	this->positionChanged(coordT);
 }
 
-unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorpieza, QList <QPoint> *moves_check)
+unsigned int piezas::check(piezas::casillaBase ***ntablero, QPoint coordI, colorP colorpieza, QList <QPoint> *moves_check)
 {
-
     if (coordI.x() <= 7 && coordI.y() <= 7)
     {
         unsigned int cont_jaques = 0;
@@ -586,6 +584,7 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
                             }
 
                             ++cont_jaques;
+                        }
                     }
                 }
             }
@@ -622,14 +621,65 @@ unsigned int piezas::check(casillaBase ***ntablero, QPoint coordI, colorP colorp
 
     return 0;
 }
-}
 
-bool piezas::interseccion(QList<QPoint> *ListaA, QList<QPoint> *ListaB)
+QList <QPoint> piezas::interseccion(QList <QPoint> ListaA, QList <QPoint> ListaB)
 {
-    if (ListaA != nullptr && ListaB != nullptr)
+    if (!ListaA.isEmpty() && !ListaB.isEmpty())
     {
-		return false;
+        QList <QPoint> inter;
+
+        for (int i = 0; i < ListaA.size(); ++i)
+        {
+            for (int j = 0; j < ListaB.size(); ++j)
+            {
+                if (ListaA[i] == ListaB[j])
+                    inter.append(ListaA[i]);
+            }
+        }
+
+        ListaA.clear();
+
+        if (inter.size() != 0)
+        {
+            for (int i = 0; i < inter.size(); ++i)
+                ListaA.append(inter[i]);
+
+            return ListaA;
+        }
     }
 
-    return false;
+    QList <QPoint> mov;
+
+    return mov;
+}
+
+QList<QPoint> piezas::legal_mov(piezas::casillaBase ***ntablero, QPoint posact, QList<QPoint> ListaA, colorP equipo)
+{
+    QList <QPoint> mov;
+
+    for (int i = 0; i < ListaA.size(); ++i)
+    {
+        ntablero[posact.x()][posact.y()]->setPos(TAM_SANGRIA + TAM_CUADRO * ListaA[i].x(), TAM_SANGRIA + TAM_CUADRO * ListaA[i].y());
+        ntablero[posact.x()][posact.y()]->setCoord(QPoint(ListaA[i].x(), ListaA[i].y()));
+        ntablero[ListaA[i].x()][ListaA[i].y()] = ntablero[posact.x()][posact.y()];
+        ntablero[posact.x()][posact.y()] = new casillaBase(nullptr, QPoint(posact.x(), posact.y()), VACIA, BASE, ntablero);
+
+        if (equipo == BLANCA)
+        {
+            if (!check(ntablero, coord_rey_blanco, BLANCA))
+                mov.append(ListaA[i]);
+        }
+        else
+        {
+            if (!check(ntablero, coord_rey_negro, NEGRA))
+                mov.append(ListaA[i]);
+        }
+
+        ntablero[ListaA[i].x()][ListaA[i].y()]->setPos(TAM_SANGRIA + TAM_CUADRO * posact.x(), TAM_SANGRIA + TAM_CUADRO * posact.y());
+        ntablero[ListaA[i].x()][ListaA[i].y()]->setCoord(QPoint(posact.x(), posact.y()));
+        ntablero[posact.x()][posact.y()] = ntablero[ListaA[i].x()][ListaA[i].y()];
+        ntablero[ListaA[i].x()][posact.y()] = new casillaBase(nullptr, QPoint(ListaA[i].x(), ListaA[i].y()), VACIA, BASE, ntablero);
+    }
+
+    return mov;
 }

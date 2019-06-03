@@ -1,7 +1,7 @@
 #ifndef ALFIL_H
 #define ALFIL_H
 
-#include "game/clases/piezabase.h"
+#include "game/clases/casillabase.h"
 
 namespace piezas {
 

@@ -6,11 +6,12 @@ coronacionPeon::coronacionPeon(QWidget *parent, int team, QPoint oldCoord, QPoin
 	ui(new Ui::coronacionPeon)
 {
 	ui->setupUi(this);
+	//Cargar la imagen default
 	QString filepath = QCoreApplication::applicationDirPath() + "/resources/"+QString::number(team)+"reina.png";
 		imagen = new QPixmap(filepath);
-
+	//Guardar el color del equipo
 		color = team;
-
+	//Poner la imagen en pantalla
 		int w = ui->imageLabel->width(), h = ui->imageLabel->height();
 		ui->imageLabel->setPixmap(imagen->scaled(w,h,Qt::KeepAspectRatio));
 		selection = 0;
@@ -27,6 +28,7 @@ coronacionPeon::~coronacionPeon()
 
 void coronacionPeon::on_selector_currentIndexChanged(int index)
 {
+	//Cambiar la imagen al cambiar la seleccion
 	QString filepath;
 		switch (index) {
 			case 0:
@@ -57,6 +59,7 @@ void coronacionPeon::on_selector_currentIndexChanged(int index)
 
 void coronacionPeon::on_aceptar_pressed()
 {
+	//Mandar la seleccion al tablero
 	emit returnSelect(selection,oCoord, nCoord);
 	QDialog::accept();
 }

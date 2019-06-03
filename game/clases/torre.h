@@ -2,7 +2,7 @@
 #define TORRE_H
 
 
-#include "game/clases/piezabase.h"
+#include "game/clases/casillabase.h"
 
 namespace piezas {
 
@@ -11,6 +11,18 @@ namespace piezas {
 # Valor
 - 5 Puntos
 
+# Movimientos:
+
+- T = Alfil
+- X = Movimientos posibles
+
+_	 | _    | _    | _    | _
+:--: | :--: | :--: | :--: | :--:
+'	 | '    | X    | '    | '
+'    | '    | X    | '    | '
+X	 | X    | T    | X    | X
+'    | '    | X    | '    | '
+'	 | '    | X    | '    | '
 Torre*/
 class torre : public casillaBase
 {

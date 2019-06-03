@@ -18,19 +18,21 @@ class coronacionPeon : public QDialog
 		~coronacionPeon();
 
 	private slots:
+		///Cuando se cambia la seleccion
 		void on_selector_currentIndexChanged(int index);
-
+		///Al dar click en aceptar
 		void on_aceptar_pressed();
 
 	signals:
+		///Regresar la seleccion al tablero
 		int returnSelect(int selection, QPoint oldCoord, QPoint newCoord);
 
 	private:
 		Ui::coronacionPeon *ui;
-		QPixmap *imagen;
-		int color;
-		int selection;
-		QPoint oCoord, nCoord;
+		QPixmap *imagen; //!< Imagen que se muestra
+		int color; //!< Color de la pieza
+		int selection; //!< Seleccion del tipo de pieza
+		QPoint oCoord, nCoord; //!< Coordenadas
 };
 
 #endif // CORONACIONPEON_H

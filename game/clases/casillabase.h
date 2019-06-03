@@ -44,7 +44,7 @@ using namespace piezas;
 
 ///Pieza base
 /**
-BLANCA = blanco , NEGRA = negra
+BLANCA = blanco , NEGRA = negro
 
 Implementa:
 - El click en el objeto
@@ -119,15 +119,9 @@ class casillaBase : public QObject, public QGraphicsPixmapItem
 		bool getSpecialA() const {return specialA;}
 
         ///Cambiar si el rey esta en jaque
-        void setJaque(bool newJaque, colorP equipo)
-        {
-            if (equipo == BLANCA)
-                jaque_blancas = newJaque;
-            else
-                jaque_negras = newJaque;
-        }
+        void setJaque(unsigned int newJaque) {jaque = newJaque;}
         ///Conseguir si el rey esta en jaque
-        bool getJaque(colorP equipo) {return ((equipo == BLANCA)? jaque_blancas : jaque_negras);}
+        unsigned int getJaque(void) {return jaque;}
 
 		void setTurno(bool newT) {turno = newT;}
 
@@ -161,8 +155,7 @@ class casillaBase : public QObject, public QGraphicsPixmapItem
 
 	private:
 		bool specialA; //!< Booleano usado en condiciones especiales, como el enroque o la captura al paso
-        bool jaque_blancas; // para saber si esta en jaque las piezas blancas
-        bool jaque_negras; // para saber si esta en jaque las piezas negras
+        unsigned int jaque; // para saber si esta en jaque las piezas blancas
 
 		bool turno; //!< Si es el turno de la pieza
 
@@ -173,9 +166,20 @@ class casillaBase : public QObject, public QGraphicsPixmapItem
 		bool lastClicked;
 };
 
+///Funcion de jaque
+/**
+@param [in] ntablero es la matriz de las piezas
+@param [in] coordI coordenada en donde se va a revisar
+@param [in] colorpieza el color de la pieza
+@param [in] moves_check*/
 unsigned int check(casillaBase ***ntablero = nullptr, QPoint coordI = QPoint(8, 8), colorP colorpieza = BLANCA, QList <QPoint> *moves_check = nullptr);
-bool interseccion(QList<QPoint> *ListaA, QList<QPoint> *ListaB);
 
+///Interseccion entre dos listas
+/**
+@param [in] ListaA primera lista
+@param [in] ListaB segunda lista*/
+QList <QPoint> interseccion(QList <QPoint> ListaA, QList <QPoint> ListaB);
+QList <QPoint> legal_mov(casillaBase ***ntablero = nullptr, QPoint posact = QPoint(0, 0), QList <QPoint> ListaA = QList <QPoint>(), colorP equipo = BLANCA);
 
 }
 

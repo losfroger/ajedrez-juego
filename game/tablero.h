@@ -41,7 +41,6 @@ class tablero : public QDialog
 		~tablero();
 
 	private:
-		int turno;
 		QGraphicsPixmapItem *tableroBG;
 		Ui::tablero *ui;
 		QGraphicsScene *scene; //!< Escena donde se ponen las imagenes
@@ -67,5 +66,7 @@ class tablero : public QDialog
 
 		void promocion(int type, QPoint oldCoord, QPoint newCoord);
 };
+
+bool check_mate(casillaBase ***ntablero, colorP equipo);
 
 #endif // TABLERO_H

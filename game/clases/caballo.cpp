@@ -1,4 +1,5 @@
 #include "caballo.h"
+#include "game/global.hpp"
 
 piezas::caballo::caballo(QGraphicsItem *parent, QPoint coordI, colorP iColor, casillaBase ***nTablero) : casillaBase (parent, coordI, iColor, CABALLO, nTablero)
 {
@@ -81,6 +82,49 @@ QList<QPoint> piezas::caballo::movimientos()
         {
             if (tablero[posx + 1][posy + 2]->getColor() != this->getColor())
                 moves.append(QPoint(posx + 1, posy + 2));
+        }
+    }
+
+    if (this->getColor() == BLANCA)
+    {
+        if (tablero[coord_rey_blanco.x()][coord_rey_blanco.y()]->getJaque())
+        {
+            if (tablero[coord_rey_blanco.x()][coord_rey_blanco.y()]->getJaque() == 1)
+            {
+               QList <QPoint> moves2;
+
+               moves2 = interseccion(moves, arreglo_jaque_blancas);
+
+               moves.clear();
+
+               for (int i = 0; i < moves2.size(); ++i)
+                   moves.append(moves2[i]);
+
+               moves2.clear();
+            }
+            else
+                moves.clear();
+        }
+    }
+    else
+    {
+        if (tablero[coord_rey_negro.x()][coord_rey_negro.y()]->getJaque())
+        {
+            if (tablero[coord_rey_negro.x()][coord_rey_negro.y()]->getJaque() == 1)
+            {
+                QList <QPoint> moves2;
+
+                moves2 = interseccion(moves, arreglo_jaque_negras);
+
+                moves.clear();
+
+                for (int i = 0; i < moves2.size(); ++i)
+                    moves.append(moves2[i]);
+
+                moves2.clear();
+            }
+            else
+                moves.clear();
         }
     }
 

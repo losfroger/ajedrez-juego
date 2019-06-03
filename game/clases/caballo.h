@@ -2,7 +2,7 @@
 #define CABALLO_H
 
 
-#include "game/clases/piezabase.h"
+#include "game/clases/casillabase.h"
 
 namespace piezas {
 
@@ -23,10 +23,6 @@ X    | '    | '    | '    | X
 '	 | '    | C    | '    | '
 X    | '    | '    | '    | X
 '	 | X    | '    | X    | '
-
-
-
-
 */
 class caballo : public casillaBase
 {
