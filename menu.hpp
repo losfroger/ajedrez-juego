@@ -1,38 +1,38 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
+#include <QDebug>
 #include <QMainWindow>
 #include <QPixmap>
-#include <QDebug>
 
 #include "acerca/acercade.h"
 #include "error/error.h"
-#include "game/tablero.h"
 #include "game/coronacionpeon.h"
+#include "game/tablero.h"
 
 namespace Ui {
 class menu;
 }
 
-
 class menu : public QMainWindow
 {
-		Q_OBJECT
+  Q_OBJECT
 
-	public:
-		explicit menu(QWidget *parent = nullptr);
-		~menu();
+public:
+  explicit menu(QWidget* parent = nullptr);
+  ~menu();
 
-	private slots:
-		void on_salir_clicked();
+private slots:
+  ///Presionar salir
+  void on_salir_clicked();
+  ///Presionar "acerca de"
+  void on_acerca_clicked();
+  ///Presionar "Jugar!"
+  void on_jugar_clicked();
 
-		void on_acerca_clicked();
-
-		void on_jugar_clicked();
-
-	private:
-		Ui::menu *ui;
-		acercaDe *acerca;
+private:
+  Ui::menu* ui;
+  acercaDe* acerca;
 };
 
 #endif // MENU_HPP

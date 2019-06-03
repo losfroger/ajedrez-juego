@@ -3,10 +3,9 @@
 
 #include "game/clases/casillabase.h"
 
-
 namespace piezas {
 
-///Pieza peon
+/// Pieza peon
 /**
 # Valor
 - 1 Punto
@@ -18,7 +17,7 @@ namespace piezas {
 
 ##Primer turno:
 
- _    | _    | _   
+ _    | _    | _
  :--: | :--: | :--:
  '    | '    | '
  '    | X    | '
@@ -38,42 +37,42 @@ namespace piezas {
 */
 class peon : public casillaBase
 {
-	public:
-		///Constructor
-		/**
-		@param [in] parent Padre objeto
-		@param [in] coordI Coordenada del tablero donde va a estar la pieza
-		@param [in] iColor Color de la pieza*/
-		peon(QGraphicsItem *parent=nullptr, QPoint coordI = QPoint(0,0), colorP iColor = BLANCA, casillaBase ***nTablero = nullptr);
+public:
+  /// Constructor
+  /**
+  @param [in] parent Padre objeto
+  @param [in] coordI Coordenada del tablero donde va a estar la pieza
+  @param [in] iColor Color de la pieza*/
+  peon(QGraphicsItem* parent = nullptr,
+	   QPoint coordI = QPoint(0, 0),
+	   colorP iColor = BLANCA,
+	   casillaBase*** nTablero = nullptr);
 
-		///Constructor copia
-		peon(const casillaBase &other);
+  /// Constructor copia
+  peon(const casillaBase& other);
 
-		///Lista de movimientos de la pieza
-		/**
-		Funcion que calcula los movimientos que puede hacer la pieza
-		@return Lista con los movimientos posibles expresados en coordenadas del tablero*/
-		QList<QPoint> movimientos();
+  /// Lista de movimientos de la pieza
+  /**
+  Funcion que calcula los movimientos que puede hacer la pieza
+  @return Lista con los movimientos posibles expresados en coordenadas del
+  tablero*/
+  QList<QPoint> movimientos();
 
-		void positionChanged(QPoint nCoord);
-		void update();
+  void positionChanged(QPoint nCoord);
+  void update();
 
-		bool getFirstMove();
+  bool getFirstMove();
 
-	private:
+private:
+  QList<QPoint> captura;
 
-		QList <QPoint> captura;
+  int count;
+  bool firstMove; //!< Si es el primer movimiento del peon
+  bool capturaPaso;
 
-		int count;
-		bool firstMove; //!< Si es el primer movimiento del peon
-		bool capturaPaso;
-
-	signals:
-		void capturaPasoSignal(QPoint coord);
-
+signals:
+  void capturaPasoSignal(QPoint coord);
 };
-
-
 }
 
 #endif // PEON_H
