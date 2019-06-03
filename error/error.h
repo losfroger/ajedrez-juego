@@ -9,17 +9,18 @@ class error;
 
 class error : public QDialog
 {
-		Q_OBJECT
+  Q_OBJECT
 
-	public:
-		explicit error(QWidget *parent = nullptr, QString error = "Error desconocido");
-		~error();
+public:
+  explicit error(QWidget* parent = nullptr,
+				 QString error = "Error desconocido");
+  ~error();
 
-	private slots:
-		void on_aceptar_clicked();
+private slots:
+  void on_aceptar_clicked();
 
-	private:
-		Ui::error *ui;
+private:
+  Ui::error* ui;
 };
 
 #endif // ERROR_H

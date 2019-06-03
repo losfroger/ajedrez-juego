@@ -1,29 +1,72 @@
 #ifndef TABLERO_H
 #define TABLERO_H
 
+// Libreria de que es un dialogo
 #include <QDialog>
-#include <QGraphicsScene>
+// Librerias graficas
 #include <QGraphicsPixmapItem>
-#include <QTextBrowser>
+#include <QGraphicsScene>
+// Tipos de datos
+#include <QPoint>
+// Clases de las piezas
+#include "game/clases/alfil.h"
+#include "game/clases/caballo.h"
+#include "game/clases/peon.h"
+#include "game/clases/reina.h"
+#include "game/clases/rey.h"
+#include "game/clases/torre.h"
+
 #include <QtDebug>
 
 namespace Ui {
 class tablero;
 }
 
+using namespace piezas;
+
+/// Ventana de juego
+/**
+Contiene:
+
+- El tablero
+- El log
+- Indicador de quien es el turno*/
 class tablero : public QDialog
 {
-		Q_OBJECT
+  Q_OBJECT
 
-	public:
-		explicit tablero(QWidget *parent = nullptr);
-		~tablero();
+public:
+  explicit tablero(QWidget* parent = nullptr);
+  ~tablero();
 
-	private:
-		Ui::tablero *ui;
-		QTextBrowser *log;
-		QGraphicsScene *scene;
-		QGraphicsPixmapItem *pieza;
+private:
+  QGraphicsPixmapItem* tableroBG;
+  Ui::tablero* ui;
+  QGraphicsScene* scene;       //!< Escena donde se ponen las imagenes
+  casillaBase*** matrizPiezas; //!< Matriz de las piezas del tablero
+
+public slots:
+  /// Cuando se mueve una pieza
+  /**
+  Las coordenadas se expresan en coordenadas del tablero
+  @param [in] oldCoord Coordenada anterior
+  @param [in] newCoord Corrdenada nueva*/
+  void piezaMovida(QPoint oldCoord, QPoint newCoord);
+  /// Hacer seleccionable un equipo
+  /**
+  @param [in] team Equipo al que se va a hacer seleccionable
+  @param [in] changeT Si se va a cambiar de turno*/
+  void teamSelectable(colorP team, bool changeT);
+  /// Hacer NO seleccionable un equipo
+  /**
+  @param [in] team Equipo al que se va a hacer NO seleccionable
+  @param [in] changeT Si se va a cambiar de turno*/
+  void teamUnselectable(colorP team, bool changeT);
+
+  void promocion(int type, QPoint oldCoord, QPoint newCoord);
 };
+
+bool
+check_mate(casillaBase*** ntablero, colorP equipo);
 
 #endif // TABLERO_H

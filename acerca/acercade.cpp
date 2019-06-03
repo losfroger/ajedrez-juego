@@ -1,31 +1,36 @@
 #include "acercade.h"
 #include "ui_acercade.h"
 
-acercaDe::acercaDe(QWidget *parent) :
-	QDialog(parent),
-	ui(new Ui::acercaDe)
+acercaDe::acercaDe(QWidget* parent)
+  : QDialog(parent)
+  , ui(new Ui::acercaDe)
 {
-	ui->setupUi(this);
+  ui->setupUi(this);
 
-	QString s = QCoreApplication::applicationDirPath() + "/resources/ug.png";
-	QPixmap logo;
+  QString s = QCoreApplication::applicationDirPath() + "/resources/ug.png";
+  QPixmap logo;
 
-	if (logo.load(s) == true)
-	{
-		ui->logoUg->setPixmap(logo.scaled(ui->logoUg->width(),ui->logoUg->height(),Qt::KeepAspectRatio));
-	}
-	else
-	{
-		qDebug() << s;
-	}
+  if (logo.load(s) == true) {
+	ui->logoUg->setPixmap(logo.scaled(
+	  ui->logoUg->width(), ui->logoUg->height(), Qt::KeepAspectRatio));
+  } else {
+	qDebug() << s;
+  }
 }
 
 acercaDe::~acercaDe()
 {
-	delete ui;
+  delete ui;
 }
 
-void acercaDe::on_aceptar_clicked()
+void
+acercaDe::on_aceptar_clicked()
 {
-	this->accept();
+  this->accept();
+}
+
+void
+acercaDe::on_AboutQt_pressed()
+{
+  QApplication::aboutQt();
 }
