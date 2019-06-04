@@ -6,10 +6,7 @@
 // Variable para activar al demostracion del ahogado
 const bool demoahog = false;
 
-tablero::tablero(QWidget* parent)
-  : QDialog(parent)
-  , ui(new Ui::tablero)
-{
+tablero::tablero(QWidget* parent) : QDialog(parent), ui(new Ui::tablero){
   jaque_blancas = false;
   jaque_negras = false;
   jaque_mate_blancas = false;
@@ -42,75 +39,62 @@ tablero::tablero(QWidget* parent)
   // Inicializar el tablero con casillas vacias
   for (int i = 0; i < 8; i++) {
 	for (int j = 0; j < 8; j++)
-	  matrizPiezas[i][j] =
-		new casillaBase(tableroBG, QPoint(i, j), VACIA, BASE, matrizPiezas);
+	  matrizPiezas[i][j] = new casillaBase(tableroBG, QPoint(i, j), VACIA, BASE, matrizPiezas);
   }
 
   // Agregar las piezas al tablero
   // Crear peones negros
   for (int i = 0; i < 8; i++) {
 	if (!demoahog)
-	  matrizPiezas[i][1] =
-		new peon(tableroBG, QPoint(i, 1), NEGRA, matrizPiezas);
+	  matrizPiezas[i][1] = new peon(tableroBG, QPoint(i, 1), NEGRA, matrizPiezas);
   }
   // Crear peones blancos
   for (int i = 0; i < 8; i++) {
-	matrizPiezas[i][6] =
-	  new peon(tableroBG, QPoint(i, 6), BLANCA, matrizPiezas);
+	matrizPiezas[i][6] = new peon(tableroBG, QPoint(i, 6), BLANCA, matrizPiezas);
   }
   // Crear torres
   for (int i = 0; i < 8; i += 7) {
 	for (int j = 0; j < 8; j += 7) {
 	  if (j > 0)
-		matrizPiezas[i][j] =
-		  new torre(tableroBG, QPoint(i, j), BLANCA, matrizPiezas);
+		matrizPiezas[i][j] = new torre(tableroBG, QPoint(i, j), BLANCA, matrizPiezas);
 	  else if (!demoahog)
-		matrizPiezas[i][j] =
-		  new torre(tableroBG, QPoint(i, j), NEGRA, matrizPiezas);
+		matrizPiezas[i][j] = new torre(tableroBG, QPoint(i, j), NEGRA, matrizPiezas);
 	}
   }
   // Crear caballos
   for (int i = 1; i < 8; i += 5) {
 	for (int j = 0; j < 8; j += 7) {
 	  if (j > 0)
-		matrizPiezas[i][j] =
-		  new caballo(tableroBG, QPoint(i, j), BLANCA, matrizPiezas);
+		matrizPiezas[i][j] = new caballo(tableroBG, QPoint(i, j), BLANCA, matrizPiezas);
 	  else if (!demoahog)
-		matrizPiezas[i][j] =
-		  new caballo(tableroBG, QPoint(i, j), NEGRA, matrizPiezas);
+		matrizPiezas[i][j] = new caballo(tableroBG, QPoint(i, j), NEGRA, matrizPiezas);
     }
   }
   // Crear alfiles
   for (int i = 2; i < 8; i += 3) {
 	for (int j = 0; j < 8; j += 7) {
 	  if (j > 0)
-		matrizPiezas[i][j] =
-		  new alfil(tableroBG, QPoint(i, j), BLANCA, matrizPiezas);
+		matrizPiezas[i][j] = new alfil(tableroBG, QPoint(i, j), BLANCA, matrizPiezas);
 	  else if (!demoahog)
-		matrizPiezas[i][j] =
-		  new alfil(tableroBG, QPoint(i, j), NEGRA, matrizPiezas);
+		matrizPiezas[i][j] = new alfil(tableroBG, QPoint(i, j), NEGRA, matrizPiezas);
     }
   }
   // Crear reinas
   int i = 3;
   for (int j = 0; j < 8; j += 7) {
 	if (j > 0)
-	  matrizPiezas[i][j] =
-		new reina(tableroBG, QPoint(i, j), BLANCA, matrizPiezas);
+	  matrizPiezas[i][j] = new reina(tableroBG, QPoint(i, j), BLANCA, matrizPiezas);
 	else if (!demoahog)
-	  matrizPiezas[i][j] =
-		new reina(tableroBG, QPoint(i, j), NEGRA, matrizPiezas);
+	  matrizPiezas[i][j] = new reina(tableroBG, QPoint(i, j), NEGRA, matrizPiezas);
   }
   i = 4;
   // Crear reyes
   for (int j = 0; j < 8; j += 7) {
 	if (j > 0) {
-	  matrizPiezas[i][j] =
-		new rey(tableroBG, QPoint(i, j), BLANCA, matrizPiezas);
+	  matrizPiezas[i][j] = new rey(tableroBG, QPoint(i, j), BLANCA, matrizPiezas);
 	  coord_rey_blanco = QPoint(i, j);
 	} else {
-	  matrizPiezas[i][j] =
-		new rey(tableroBG, QPoint(i, j), NEGRA, matrizPiezas);
+	  matrizPiezas[i][j] = new rey(tableroBG, QPoint(i, j), NEGRA, matrizPiezas);
 	  coord_rey_negro = QPoint(i, j);
     }
   }
@@ -119,18 +103,9 @@ tablero::tablero(QWidget* parent)
   for (int i = 0; i < 8; i++) {
 	for (int j = 0; j < 8; j++) {
 	  if (matrizPiezas[i][j]->getPieza() != BASE) {
-		connect(matrizPiezas[i][j],
-				SIGNAL(piezaMoved(QPoint, QPoint)),
-				this,
-				SLOT(piezaMovida(QPoint, QPoint)));
-		connect(matrizPiezas[i][j],
-				SIGNAL(teamSelect(colorP, bool)),
-				this,
-				SLOT(teamSelectable(colorP, bool)));
-		connect(matrizPiezas[i][j],
-				SIGNAL(teamUnselect(colorP, bool)),
-				this,
-				SLOT(teamUnselectable(colorP, bool)));
+		connect(matrizPiezas[i][j], SIGNAL(piezaMoved(QPoint, QPoint)), this, SLOT(piezaMovida(QPoint, QPoint)));
+		connect(matrizPiezas[i][j], SIGNAL(teamSelect(colorP, bool)), this, SLOT(teamSelectable(colorP, bool)));
+		connect(matrizPiezas[i][j], SIGNAL(teamUnselect(colorP, bool)), this, SLOT(teamUnselectable(colorP, bool)));
 	  }
     }
   }
@@ -144,8 +119,7 @@ tablero::tablero(QWidget* parent)
   ui->gameView->setScene(scene);
 }
 
-tablero::~tablero()
-{
+tablero::~tablero() {
   // Regresar las variables globales a su estado original
   jaque_blancas = false;
   jaque_negras = false;
@@ -159,9 +133,7 @@ tablero::~tablero()
   delete ui;
 }
 
-void
-tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
-{
+void tablero::piezaMovida(QPoint oldCoord, QPoint newCoord) {
   // Variables para el log de movimientos del ajedrez
   char vX[8] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
   char piezaMovimiento;
@@ -205,19 +177,16 @@ tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
 	scene->removeItem(matrizPiezas[newCoord.x()][newCoord.y()]);
 
   // Mover la pieza a la posicion nueva
-  matrizPiezas[newCoord.x()][newCoord.y()] =
-	matrizPiezas[oldCoord.x()][oldCoord.y()];
+  matrizPiezas[newCoord.x()][newCoord.y()] = matrizPiezas[oldCoord.x()][oldCoord.y()];
 
   // Hacer que la posicion anterior este vacia
-  matrizPiezas[oldCoord.x()][oldCoord.y()] =
-	new casillaBase(nullptr, QPoint(oldCoord.x(), oldCoord.y()));
+  matrizPiezas[oldCoord.x()][oldCoord.y()] = new casillaBase(nullptr, QPoint(oldCoord.x(), oldCoord.y()));
 
   if (matrizPiezas[newCoord.x()][newCoord.y()]->getColor() == BLANCA) {
 	matrizPiezas[coord_rey_negro.x()][coord_rey_negro.y()]->setJaque(
 	  check(matrizPiezas, coord_rey_negro, NEGRA, &arreglo_jaque_negras));
 
-	jaque_negras =
-	  ((check(matrizPiezas, coord_rey_negro, NEGRA) != 0) ? true : false);
+	jaque_negras = ((check(matrizPiezas, coord_rey_negro, NEGRA) != 0) ? true : false);
 
 	if (matrizPiezas[coord_rey_negro.x()][coord_rey_negro.y()]->getJaque()) {
 	  jaque_mate_negras = check_mate(matrizPiezas, NEGRA);
@@ -236,9 +205,7 @@ tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
 	if (matrizPiezas[coord_rey_blanco.x()][coord_rey_blanco.y()]->getJaque())
 	  matrizPiezas[coord_rey_blanco.x()][coord_rey_blanco.y()]->setJaque(0);
 
-	if (check(matrizPiezas,
-			  coord_rey_negro,
-			  NEGRA)) // borrar esto en la version final
+	if (check(matrizPiezas, coord_rey_negro,  NEGRA)) // borrar esto en la version final
 	{
 	  qDebug() << "\tCheck!!! de blancas a negras";
     }
@@ -246,8 +213,7 @@ tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
 	matrizPiezas[coord_rey_blanco.x()][coord_rey_blanco.y()]->setJaque(
 	  check(matrizPiezas, coord_rey_blanco, BLANCA, &arreglo_jaque_blancas));
 
-	jaque_blancas =
-	  ((check(matrizPiezas, coord_rey_blanco, BLANCA) != 0) ? true : false);
+	jaque_blancas =  ((check(matrizPiezas, coord_rey_blanco, BLANCA) != 0) ? true : false);
 
 	if (matrizPiezas[coord_rey_blanco.x()][coord_rey_blanco.y()]->getJaque()) {
 	  jaque_mate_blancas = check_mate(matrizPiezas, BLANCA);
@@ -313,10 +279,7 @@ tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
   } else
 	piezaMovimiento = 'P';
 
-  texto += QString(piezaMovimiento) + QString(vX[oldCoord.x()]) +
-		   QString::number(8 - oldCoord.y()) + " -> " +
-		   QString(piezaMovimiento) + QString(vX[newCoord.x()]) +
-		   QString::number(8 - newCoord.y());
+  texto += QString(piezaMovimiento) + QString(vX[oldCoord.x()]) + QString::number(8 - oldCoord.y()) + " -> " + QString(piezaMovimiento) + QString(vX[newCoord.x()]) + QString::number(8 - newCoord.y());
 
   if (jaque_blancas == true || jaque_negras == true)
 	texto += " \u2020";
@@ -333,9 +296,7 @@ tablero::piezaMovida(QPoint oldCoord, QPoint newCoord)
   ui->label->setText(textoLabel);
 }
 
-void
-tablero::teamSelectable(colorP team, bool changeT)
-{
+void tablero::teamSelectable(colorP team, bool changeT) {
   qDebug() << "Team selectable " << team;
   for (int i = 0; i < 8; i++) {
 	for (int j = 0; j < 8; j++) {
@@ -351,14 +312,11 @@ tablero::teamSelectable(colorP team, bool changeT)
   }
 }
 
-void
-tablero::teamUnselectable(colorP team, bool changeT)
-{
+void tablero::teamUnselectable(colorP team, bool changeT) {
   qDebug() << "Team unselectable " << team;
   for (int i = 0; i < 8; i++) {
 	for (int j = 0; j < 8; j++) {
-	  if (matrizPiezas[i][j]->getPieza() != BASE &&
-		  matrizPiezas[i][j]->getColor() == team) {
+	  if (matrizPiezas[i][j]->getPieza() != BASE && matrizPiezas[i][j]->getColor() == team) {
 		matrizPiezas[i][j]->setSelectable(false);
 		if (changeT == true)
 		  matrizPiezas[i][j]->setTurno(false);
@@ -367,9 +325,7 @@ tablero::teamUnselectable(colorP team, bool changeT)
   }
 }
 
-void
-tablero::promocion(int type, QPoint oldCoord, QPoint newCoord)
-{
+void tablero::promocion(int type, QPoint oldCoord, QPoint newCoord) {
   int xo = newCoord.x(), yo = newCoord.y();
   qDebug() << "\nPromocion: " << oldCoord << newCoord;
   // Borrar la pieza
@@ -377,47 +333,31 @@ tablero::promocion(int type, QPoint oldCoord, QPoint newCoord)
   // Sustituirla por una nueva
   switch (type) {
 	case 0:
-	  matrizPiezas[xo][yo] = new reina(
-		tableroBG, oldCoord, matrizPiezas[xo][yo]->getColor(), matrizPiezas);
+	  matrizPiezas[xo][yo] = new reina( tableroBG, oldCoord, matrizPiezas[xo][yo]->getColor(), matrizPiezas);
 	  break;
 	case 1:
-	  matrizPiezas[xo][yo] = new torre(
-		tableroBG, oldCoord, matrizPiezas[xo][yo]->getColor(), matrizPiezas);
+	  matrizPiezas[xo][yo] = new torre( tableroBG, oldCoord, matrizPiezas[xo][yo]->getColor(), matrizPiezas);
 	  break;
 	case 2:
-	  matrizPiezas[xo][yo] = new alfil(
-		tableroBG, oldCoord, matrizPiezas[xo][yo]->getColor(), matrizPiezas);
+	  matrizPiezas[xo][yo] = new alfil( tableroBG, oldCoord, matrizPiezas[xo][yo]->getColor(), matrizPiezas);
 	  break;
 	case 3:
-	  matrizPiezas[xo][yo] = new caballo(
-		tableroBG, oldCoord, matrizPiezas[xo][yo]->getColor(), matrizPiezas);
+	  matrizPiezas[xo][yo] = new caballo( tableroBG, oldCoord, matrizPiezas[xo][yo]->getColor(), matrizPiezas);
 	  break;
 	default:
-	  matrizPiezas[xo][yo] = new reina(
-		tableroBG, oldCoord, matrizPiezas[xo][yo]->getColor(), matrizPiezas);
+	  matrizPiezas[xo][yo] = new reina( tableroBG, oldCoord, matrizPiezas[xo][yo]->getColor(), matrizPiezas);
 	  break;
   }
   // Hacer que no se pueda seleccionar
   matrizPiezas[xo][yo]->setSelectable(false);
   matrizPiezas[xo][yo]->setTurno(false);
   // Conectar la pieza con el tablero
-  connect(matrizPiezas[xo][yo],
-		  SIGNAL(piezaMoved(QPoint, QPoint)),
-		  this,
-		  SLOT(piezaMovida(QPoint, QPoint)));
-  connect(matrizPiezas[xo][yo],
-		  SIGNAL(teamSelect(colorP, bool)),
-		  this,
-		  SLOT(teamSelectable(colorP, bool)));
-  connect(matrizPiezas[xo][yo],
-		  SIGNAL(teamUnselect(colorP, bool)),
-		  this,
-		  SLOT(teamUnselectable(colorP, bool)));
+  connect(matrizPiezas[xo][yo], SIGNAL(piezaMoved(QPoint, QPoint)), this, SLOT(piezaMovida(QPoint, QPoint)));
+  connect(matrizPiezas[xo][yo], SIGNAL(teamSelect(colorP, bool)), this,  SLOT(teamSelectable(colorP, bool)));
+  connect(matrizPiezas[xo][yo], SIGNAL(teamUnselect(colorP, bool)), this, SLOT(teamUnselectable(colorP, bool)));
 }
 
-bool
-check_mate(casillaBase*** ntablero, colorP equipo)
-{
+bool check_mate(casillaBase*** ntablero, colorP equipo) {
   for (int i = 0; i < 8; ++i) {
 	for (int j = 0; j < 8; ++j) {
 	  if (ntablero[i][j]->getColor() != VACIA) {

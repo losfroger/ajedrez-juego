@@ -1,34 +1,23 @@
 #include "alfil.h"
 #include "game/global.hpp"
 
-piezas::alfil::alfil(QGraphicsItem* parent,
-					 QPoint coordI,
-					 colorP iColor,
-					 casillaBase*** nTablero)
-  : casillaBase(parent, coordI, iColor, ALFIL, nTablero)
-{
+piezas::alfil::alfil(QGraphicsItem* parent,QPoint coordI,colorP iColor,casillaBase*** nTablero) : casillaBase(parent, coordI, iColor, ALFIL, nTablero){
   QString routeImage;
   // Cargar diferente imagen dependiendo si es una pieza negra o blanca
   if (iColor == BLANCA)
-	routeImage =
-	  QCoreApplication::applicationDirPath() + "/resources/0alfil.png";
+	routeImage = QCoreApplication::applicationDirPath() + "/resources/0alfil.png";
   else {
-	routeImage =
-	  QCoreApplication::applicationDirPath() + "/resources/1alfil.png";
+	routeImage = QCoreApplication::applicationDirPath() + "/resources/1alfil.png";
   }
   qDebug() << routeImage;
   setPixmap(routeImage);
 }
 
-piezas::alfil::alfil(const piezas::casillaBase& other)
-  : casillaBase(other)
-{
+piezas::alfil::alfil(const piezas::casillaBase& other) : casillaBase(other){
   this->setPixmap(other.pixmap());
 }
 
-QList<QPoint>
-piezas::alfil::movimientos()
-{
+QList<QPoint> piezas::alfil::movimientos(){
   QList<QPoint> moves;
 
   int posx = getCoord().x();
@@ -124,8 +113,7 @@ piezas::alfil::movimientos()
 
   if (this->getColor() == BLANCA) {
 	if (tablero[coord_rey_blanco.x()][coord_rey_blanco.y()]->getJaque()) {
-	  if (tablero[coord_rey_blanco.x()][coord_rey_blanco.y()]->getJaque() ==
-		  1) {
+	  if (tablero[coord_rey_blanco.x()][coord_rey_blanco.y()]->getJaque() == 1) {
 		QList<QPoint> moves2;
 
 		moves2 = interseccion(moves, arreglo_jaque_blancas);

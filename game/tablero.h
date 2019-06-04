@@ -19,7 +19,7 @@
 #include <QtDebug>
 
 namespace Ui {
-class tablero;
+ class tablero;
 }
 
 using namespace piezas;
@@ -31,39 +31,38 @@ Contiene:
 - El tablero
 - El log
 - Indicador de quien es el turno*/
-class tablero : public QDialog
-{
+class tablero : public QDialog {
   Q_OBJECT
 
-public:
-  explicit tablero(QWidget* parent = nullptr);
-  ~tablero();
+  public:
+    explicit tablero(QWidget* parent = nullptr);
+    ~tablero();
 
-private:
-  QGraphicsPixmapItem* tableroBG;
-  Ui::tablero* ui;
-  QGraphicsScene* scene;       //!< Escena donde se ponen las imagenes
-  casillaBase*** matrizPiezas; //!< Matriz de las piezas del tablero
+  private:
+    QGraphicsPixmapItem* tableroBG;
+    Ui::tablero* ui;
+    QGraphicsScene* scene;       //!< Escena donde se ponen las imagenes
+    casillaBase*** matrizPiezas; //!< Matriz de las piezas del tablero
 
-public slots:
-  /// Cuando se mueve una pieza
-  /**
-  Las coordenadas se expresan en coordenadas del tablero
-  @param [in] oldCoord Coordenada anterior
-  @param [in] newCoord Corrdenada nueva*/
-  void piezaMovida(QPoint oldCoord, QPoint newCoord);
-  /// Hacer seleccionable un equipo
-  /**
-  @param [in] team Equipo al que se va a hacer seleccionable
-  @param [in] changeT Si se va a cambiar de turno*/
-  void teamSelectable(colorP team, bool changeT);
-  /// Hacer NO seleccionable un equipo
-  /**
-  @param [in] team Equipo al que se va a hacer NO seleccionable
-  @param [in] changeT Si se va a cambiar de turno*/
-  void teamUnselectable(colorP team, bool changeT);
+  public slots:
+    /// Cuando se mueve una pieza
+    /**
+    Las coordenadas se expresan en coordenadas del tablero
+    @param [in] oldCoord Coordenada anterior
+    @param [in] newCoord Corrdenada nueva*/
+    void piezaMovida(QPoint oldCoord, QPoint newCoord);
+    /// Hacer seleccionable un equipo
+    /**
+    @param [in] team Equipo al que se va a hacer seleccionable
+    @param [in] changeT Si se va a cambiar de turno*/
+    void teamSelectable(colorP team, bool changeT);
+    /// Hacer NO seleccionable un equipo
+    /**
+    @param [in] team Equipo al que se va a hacer NO seleccionable
+    @param [in] changeT Si se va a cambiar de turno*/
+    void teamUnselectable(colorP team, bool changeT);
 
-  void promocion(int type, QPoint oldCoord, QPoint newCoord);
+   void promocion(int type, QPoint oldCoord, QPoint newCoord);
 };
 
 bool

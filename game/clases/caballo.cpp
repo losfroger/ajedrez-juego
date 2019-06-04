@@ -1,34 +1,22 @@
 #include "caballo.h"
 #include "game/global.hpp"
 
-piezas::caballo::caballo(QGraphicsItem* parent,
-						 QPoint coordI,
-						 colorP iColor,
-						 casillaBase*** nTablero)
-  : casillaBase(parent, coordI, iColor, CABALLO, nTablero)
-{
+piezas::caballo::caballo(QGraphicsItem* parent, QPoint coordI,colorP iColor,casillaBase*** nTablero): casillaBase(parent, coordI, iColor, CABALLO, nTablero){
   QString routeImage;
   // Cargar diferente imagen dependiendo si es una pieza negra o blanca
   if (iColor == BLANCA)
-	routeImage =
-	  QCoreApplication::applicationDirPath() + "/resources/0caballo.png";
-  else {
-	routeImage =
-	  QCoreApplication::applicationDirPath() + "/resources/1caballo.png";
-  }
+	routeImage = QCoreApplication::applicationDirPath() + "/resources/0caballo.png";
+  else
+	routeImage = QCoreApplication::applicationDirPath() + "/resources/1caballo.png";
   qDebug() << routeImage;
   setPixmap(routeImage);
 }
 
-piezas::caballo::caballo(const piezas::casillaBase& other)
-  : casillaBase(other)
-{
+piezas::caballo::caballo(const piezas::casillaBase& other): casillaBase(other){
   this->setPixmap(other.pixmap());
 }
 
-QList<QPoint>
-piezas::caballo::movimientos()
-{
+QList<QPoint> piezas::caballo::movimientos(){
   QList<QPoint> moves;
 
   int posx = getCoord().x();
@@ -83,8 +71,7 @@ piezas::caballo::movimientos()
 
   if (this->getColor() == BLANCA) {
 	if (tablero[coord_rey_blanco.x()][coord_rey_blanco.y()]->getJaque()) {
-	  if (tablero[coord_rey_blanco.x()][coord_rey_blanco.y()]->getJaque() ==
-		  1) {
+	  if (tablero[coord_rey_blanco.x()][coord_rey_blanco.y()]->getJaque() == 1) {
 		QList<QPoint> moves2;
 
 		moves2 = interseccion(moves, arreglo_jaque_blancas);

@@ -27,30 +27,29 @@ X	 | '    | X    | '    | X
 
 
 */
-class reina : public casillaBase
-{
-public:
-  /// Constructor
-  /**
-  @param [in] parent Padre objeto
-  @param [in] coordI Coordenada del tablero donde va a estar la pieza
-  @param [in] iColor Color de la pieza*/
-  reina(QGraphicsItem* parent = nullptr,
-		QPoint coordI = QPoint(0, 0),
-		colorP iColor = BLANCA,
-		casillaBase*** nTablero = nullptr);
+  class reina : public casillaBase{
+    public:
+      /// Constructor
+      /**
+      @param [in] parent Padre objeto
+      @param [in] coordI Coordenada del tablero donde va a estar la pieza
+      @param [in] iColor Color de la pieza*/
+      reina(QGraphicsItem* parent = nullptr,
+    		QPoint coordI = QPoint(0, 0),
+    		colorP iColor = BLANCA,
+    		casillaBase*** nTablero = nullptr);
 
-  /// Constructor copia
-  reina(const casillaBase& other);
+      /// Constructor copia
+      reina(const casillaBase& other);
 
-  /// Lista de movimientos de la pieza
-  /**
-  Funcion que calcula los movimientos que puede hacer la pieza
-  @return Lista con los movimientos posibles expresados en coordenadas del
-  tablero*/
-  QList<QPoint> movimientos();
+      /// Lista de movimientos de la pieza
+      /**
+      Funcion que calcula los movimientos que puede hacer la pieza
+      @return Lista con los movimientos posibles expresados en coordenadas del
+      tablero*/
+      QList<QPoint> movimientos();
 
-private:
+    private:
 };
 }
 #endif // REINA_H
