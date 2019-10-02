@@ -17,7 +17,6 @@ Debes contar con Qt pre-instalado en tu pc, después clona en tu maquina local e
 
 ## Autores ✒️
 
-_Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
 * **Emilio Aaron Puga Avalos**
 * **Ricardo Adrián Buena Corona**
 * **Ángel Jarym Gomez Meza**
